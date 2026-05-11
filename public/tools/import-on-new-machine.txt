@@ -1,0 +1,21 @@
+Import existing keypair on a second machine
+
+1) Install Gpg4win / GnuPG
+2) Copy your encrypted private export and public export to the new machine
+3) Import:
+
+gpg --import private-encrypted-*.asc
+gpg --import public-*.asc
+
+4) Confirm key is present:
+
+gpg --list-secret-keys --keyid-format LONG
+gpg --fingerprint --keyid-format LONG "aday@aday.net.au"
+
+5) Test decrypt:
+
+gpg --decrypt test-message.asc > test-message.txt
+
+Notes:
+- You need the passphrase from original key creation.
+- Do not store private key exports in cloud drives without extra encryption.

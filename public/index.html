@@ -9,78 +9,43 @@
 </head>
 <body>
   <div class="container on">
+    <div class="side-guide side-guide-left" aria-hidden="true">
+      <pre id="aliceStory" class="type-target"></pre>
+    </div>
+
+    <div class="side-guide side-guide-right" aria-hidden="true">
+      <pre id="bobStory" class="type-target"></pre>
+    </div>
+
     <div class="screen">
-      <h3 class="title">
-        CONNECTION ESTABLISHED - PUBLIC KEY aday@aday.net.au
-      </h3>
+      <h3 class="title">CONNECTION ESTABLISHED - PUBLIC KEY aday@aday.net.au</h3>
       <div class="box--outer">
         <div class="box">
           <div class="box--inner">
             <div class="content">
               <div class="holder">
-                <br>
-                <b>PGP IN USE - PUBLIC KEY -<br> [aday [at] aday.net.au] <br>&nbsp;&nbsp;<br>Play safe - Updated - 24/SEPT/2021 - Valid till 24/SEPT/2023
-                  <br>
-                  <br>
-                  <div class="row">
-                    <div class="col col__center">
-                      <br>
-                      <textarea readonly>
------BEGIN PGP PUBLIC KEY BLOCK-----
+                <p class="status-line">UID: aday@aday.net.au</p>
 
-mQINBGFNyJ8BEAC76VZN9DZv4qARvOdps0BhZfUDWRoIRIc0PrwTYcCwY8C/deS9
-GMT564mlAZkMqhhFcNwHBcB+OZNetKKFscsqlYuVfKpfJKR3mtAfRlHu7pCNLcrs
-baC21hc0UpAl0vG+VE4NnusRDiaKKG4pqpyYcor5tqTsX4dAmite/xTbKxPzzkiu
-yDW92LeUU2NGBuPE9bIwIkAqZLrlJmD04ZJOJrxKQmSvXG0gNlV6ZyNT2jUHvpWv
-PUay9iuyBk271I1I80chWj1hXbGh4WexTbjZm37rv8kVQhc2keKks2GBvVynpAdO
-XbrELAtpjoWaEfjVBqX6Hd7WqcOU992n1cjwRFPfh98ib7FpcBa7av7i+VmR8Yon
-hOBMUCHnERAyzZ5eNQoJYlC0zuIWLdzCtOuiZbuM/2DRJNvqaB2UyKqZnxImfTLw
-Gz2Qwmy7J0jZZq+9ECySUP5X5uq0Htdg8JyHmju8BqKekGcxOB1dVcczeVh9S8K9
-KbFFCXQITlNz9NHr9eNijeeKiHuhAMqcfUJ/yquqafAI3jnuK0rpBwjLyyLAYsbP
-YS8jWHqcGFNyIOAxcupw98EsjYgbj61flC7Gxl0vVCSRVzOT9F4LpThDqSXUwDMW
-l+WFDz3dElxdGl2lZ/cqfw6uuzRRzxy8wQxVea+OdlWndWSkCWDOATKd8wARAQAB
-tBdBZGF5IDxhZGF5QGFkYXkubmV0LmF1PokCVAQTAQgAPhYhBPySvzNzqixwmcoA
-knKBDwnS7MwKBQJhTcifAhsDBQkDwc+BBQsJCAcCBhUKCQgLAgQWAgMBAh4BAheA
-AAoJEHKBDwnS7MwKHLgQALGVw13Ww8lP/L7veGO01ZgDKieyVkE5MHZl5vjjoJUh
-vbD9NQMI9GlHzGBniasuX66nKCEyZ3+3muwoOp72oKxw+jahogCqhOw5827PK55K
-jzwMmo6583ZNmlp5AAYpMFT3eqBb7GnjRtCi7FxQL5CBBrOa9A2/801nlsXNTvAJ
-yEqNitAz33d8iecDicw+as/LQ9Ke99zqbJnYFjdRG165XnAgfK22hRe1D9nhe0d5
-qp8BGtxm/DHuwPp8qpD/Cz1qbBqXhgPKy+1L+fnfWaXF2gGiuuy12CYVARCBT1+C
-ijSZ80k3uufPgZmBiQUzor+p8grfp8Oq85EMbDPOva5u6DMIGhhdqUhA0YnPZ6k4
-rw9j+Uz88F7c7G8pPGG8HUXOd2CVNxiaXU5iz6I/XEESP6kVhwYXcHRj3DuEAH6F
-9nUQcvDp+26fBqfaCxAQJk/czS57xnhaO+as+vIIsl7x7X1+KjKlrZ4SC+EauhUL
-OKqNUE1z+4UjqTJPG9Trjzg9Q7iD3uy/Z8lwmJObhnyEE1XoCNrNy/dvF2mPxVZV
-8yxvI+1eloCR/KdWnEP4U/pfJ2lOezQ5VDrYhiwdC8mH5ECSaQy2XIhQ0YbCe7bm
-GSCyaHKi9nM2FSg2v9aInDdzur9NDKucYif14COLnczud0R/gcwj+R+AryObrjFA
-uQINBGFNyJ8BEADzIvIzMCkyZUVK5g/dg6Pweb1Znyipf/sddFK7sbjAUEJiwAUE
-lhKKFiwfmZtuJwUXq3YMJ5nONwtqlHwwOk8yBtlo+VywTAjvxPGQe8TZPaO1vcKs
-XReKBzob/Lvw28lYDtWKmjCsPqLVPg+U1a43SSvAAglFMlL5qCJtjDbRvAGfVZ8m
-Y26kruOiv9DC5h7LTFzNe2xOntFVWCznwH+coLZ1n3QtFSAoVD5uSmsryiqN3qEU
-dwTp6afuZstZQ/czZKPFLYhWVhUl3eH69QrEFjd0hv3ySXtLiSzdimb3RC0YysRR
-HCJplg0XCWRj55K6ggG0RsKwSDjkh41kjnRfMQ9cuOqdUQg5MuXtvZMAeKAOwUm3
-B2ZLjywWVDM8Y7bcOlaKyr0ARN7ofLR6ZXorfoPKzfexzKIWtwJ7YrudVi041AnB
-wlTqQJXjKk+X/KmgMnnQLs/3Xe1dvvQiap8a7ZxDpGfEZmuVuK1F7FC1ctCtocqT
-5xOnJN2XItu6M8liHcO3ogf6Kq43uUrFBdgy20SL86ZKX3SjRPTLTxkKlooQ5lu9
-Yk8mWtAgTjm+wHLPrrl9EPTvkOID3MU1oUVc3Dl/GLkBXQsxElBH8Ijh1snqK88G
-izepIPcEYry1lWE0OuW1+qV4T9YJzaURCju7Pizfx+i4wkkaiqF/s4M1AwARAQAB
-iQI8BBgBCAAmFiEE/JK/M3OqLHCZygCScoEPCdLszAoFAmFNyJ8CGwwFCQPBz4EA
-CgkQcoEPCdLszAqIEA//aBUWgytfmQebyrCYgM1cMUaBnm9ksxHlzU3DvPnc2ak/
-yufAmMHTDz4PPJHv5jlsu2G0G5VK363oLYM0WZrYyjMGoXJ/31yuUHI8EnBWlm8p
-b5me9idasKagVUCDB6+6pnwbXV8bD4mcMdp7umZiZ2F3KmchfCpgxuGn9f8z0GHW
-+hp4bSDTmaMK58Ig0yYZQkq7j9ioB1szzIiDXWzlNRUSaFpM90nga7gPWuk0zv3w
-5r2SfSVQcWbd3NYF/05D+07PB/w/UGKoLoMKTC7iNC0vHX6CzKS9ZIJUi0OkhVw+
-il2C0W5z9lLxDKR9dVfeqLoZdbCs3WY20u1B+bk5bHoS3SmpSijyEC5KwkEZ/kll
-fH5r1tAUgJuRfZTbLqmMbWtgEszMiG60XW07Kwqax/VIGHC6nmaAGDilF6P+qEq1
-0ND8otByQ3NVCVHRUq5IY330VjICyEeWid7xbANVPMY0yEc/SRJjn9hm2tCEwXdg
-rUN4iDCrn0Zgbk7lxdCywlDowxsXMaOixOEzR3qcrA+jw83E8G/lg4tdKb5zMkZN
-/34ThH/ThRiE+umHBKeuFaDAyE9VLX0sQ+qxE4BY/9+vS8AT1V27kJP/teVmf/2H
-BHVMy+otHeEQ+3cIQsxk2DnKwOjlXoGbsDBBsv1f9TeeY6NuPtInKyGBeGZfSOM=
-=72R0
------END PGP PUBLIC KEY BLOCK-----
-</textarea>
+                <div class="row">
+                  <div class="col col__center">
+                    <p class="label-line">PUBLIC KEY (ASCII ARMORED)</p>
+                    <div class="key-block">
+                      <button id="copyKeyBtn" class="tool-btn copy-btn" type="button">COPY KEY</button>
+                      <textarea id="pgpBlock" readonly></textarea>
                     </div>
+                    <p class="meta-line">Fingerprint: 1A73 F039 1A08 C124 4F4E 3A05 5775 5BF3 3748 3B1D | Key ID: 57755BF337483B1D | Expires: 2027-06-30</p>
+                    <p class="meta-actions">
+                      <button id="copyFingerprintBtn" class="tool-btn copy-fp-btn" type="button">COPY FINGERPRINT</button>
+                    </p>
+                    <p class="tools-line">
+                      Tools:
+                      <button id="readmeBtn" class="tool-link-btn" type="button">README</button> |
+                      <a href="https://github.com/aday1/keys-aday-net-au/blob/main/public/tools/gpg-keygen-windows.ps1" target="_blank" rel="noopener noreferrer">Windows keygen script</a> |
+                      <a href="https://github.com/aday1/keys-aday-net-au/blob/main/public/tools/gpg-keygen-linux.sh" target="_blank" rel="noopener noreferrer">Linux keygen script</a> |
+                      <button id="importBtn" class="tool-link-btn" type="button">Import guide</button>
+                    </p>
                   </div>
-                </b>
+                </div>
               </div>
             </div>
           </div>
@@ -88,5 +53,413 @@ BHVMy+otHeEQ+3cIQsxk2DnKwOjlXoGbsDBBsv1f9TeeY6NuPtInKyGBeGZfSOM=
       </div>
     </div>
   </div>
+  <div id="readmeModal" class="modal-backdrop">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="readmeTitle">
+      <div class="modal-header">
+        <p id="readmeTitle">README</p>
+        <button id="closeReadmeBtn" class="tool-btn" type="button">CLOSE</button>
+      </div>
+      <div class="modal-stack">
+        <div class="modal-top">
+          <p class="modal-section-title">QUICK START FLOW</p>
+          <div class="mermaid mermaid-flow">
+sequenceDiagram
+    actor Alice
+    actor Bob
+    Bob-->>Alice: Share public key
+    Alice->>Bob: Encrypt message to Bob
+    Bob->>Bob: Decrypt with private key + passphrase
+    Bob->>Alice: Send signed message
+    Alice-->>Bob: Verify with Bob public key
+          </div>
+        </div>
+        <div class="modal-divider"></div>
+        <div class="modal-bottom">
+          <p class="modal-section-title">EXPLAIN</p>
+          <pre class="modal-text">Install:
+Windows: Gpg4win (Kleopatra + gpg)
+https://gpg4win.org/
+Linux / macOS: GnuPG (gpg)
+https://gnupg.org/
+
+Safe flow:
+1) Generate key locally
+2) Verify fingerprint out-of-band
+3) Publish PUBLIC key only
+4) Keep PRIVATE key + revoke cert offline
+
+Ref:
+openpgp.dev/book/encryption.html</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="importModal" class="modal-backdrop">
+    <div class="modal-panel modal-panel--import" role="dialog" aria-modal="true" aria-labelledby="importTitle">
+      <div class="modal-header">
+        <p id="importTitle">IMPORT ON NEW MACHINE</p>
+        <button id="closeImportBtn" class="tool-btn" type="button">CLOSE</button>
+      </div>
+      <div class="modal-stack">
+        <div class="modal-top">
+          <p class="modal-section-title">STEPS</p>
+          <pre class="modal-text">1) Copy your private key backup and public key file to the new machine.
+2) Keep private key files offline whenever possible.
+3) Import, then verify fingerprint before trusting.
+4) Test sign + decrypt before using in production comms.</pre>
+        </div>
+        <div class="modal-divider"></div>
+        <div class="modal-bottom">
+          <p class="modal-section-title">COMMANDS</p>
+          <pre class="modal-text"># Import keys
+gpg --import aday-private.asc
+gpg --import aday-public.asc
+
+# List secret keys
+gpg --list-secret-keys --keyid-format LONG
+
+# Verify fingerprint
+gpg --fingerprint aday@aday.net.au
+
+# Encrypt test
+echo test > test.txt
+gpg --encrypt --armor --recipient aday@aday.net.au test.txt
+
+# Decrypt test
+gpg --decrypt test.txt.asc</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    (function () {
+      var copyBtn = document.getElementById("copyKeyBtn");
+      var copyFingerprintBtn = document.getElementById("copyFingerprintBtn");
+      var keyBox = document.getElementById("pgpBlock");
+      var keyBlockWrap = document.querySelector(".key-block");
+      var readmeBtn = document.getElementById("readmeBtn");
+      var readmeModal = document.getElementById("readmeModal");
+      var closeReadmeBtn = document.getElementById("closeReadmeBtn");
+      var importBtn = document.getElementById("importBtn");
+      var importModal = document.getElementById("importModal");
+      var closeImportBtn = document.getElementById("closeImportBtn");
+      var aliceStory = document.getElementById("aliceStory");
+      var bobStory = document.getElementById("bobStory");
+      var FINGERPRINT = "1A73 F039 1A08 C124 4F4E 3A05 5775 5BF3 3748 3B1D";
+
+      copyBtn.addEventListener("click", function () {
+        var text = keyBox.value;
+        navigator.clipboard.writeText(text).then(function () {
+          copyBtn.textContent = "COPIED";
+          setTimeout(function () {
+            copyBtn.textContent = "COPY";
+          }, 1400);
+        }).catch(function () {
+          keyBox.select();
+          document.execCommand("copy");
+          copyBtn.textContent = "COPIED";
+          setTimeout(function () {
+            copyBtn.textContent = "COPY";
+          }, 1400);
+        });
+      });
+
+      copyFingerprintBtn.addEventListener("click", function () {
+        navigator.clipboard.writeText(FINGERPRINT).then(function () {
+          copyFingerprintBtn.textContent = "COPIED";
+          setTimeout(function () {
+            copyFingerprintBtn.textContent = "COPY FINGERPRINT";
+          }, 1400);
+        }).catch(function () {
+          var temp = document.createElement("textarea");
+          temp.value = FINGERPRINT;
+          document.body.appendChild(temp);
+          temp.select();
+          document.execCommand("copy");
+          document.body.removeChild(temp);
+          copyFingerprintBtn.textContent = "COPIED";
+          setTimeout(function () {
+            copyFingerprintBtn.textContent = "COPY FINGERPRINT";
+          }, 1400);
+        });
+      });
+
+      function fitKeyBox() {
+        keyBox.style.height = "1px";
+        keyBox.style.height = (keyBox.scrollHeight + 2) + "px";
+      }
+      fitKeyBox();
+      window.addEventListener("resize", fitKeyBox);
+      setTimeout(fitKeyBox, 60);
+
+      function typeInto(el, fullText, speed, done) {
+        var i = 0;
+        el.textContent = "";
+        function step() {
+          if (i < fullText.length) {
+            el.textContent += fullText.charAt(i);
+            i += 1;
+            setTimeout(step, speed);
+          } else if (done) {
+            done();
+          }
+        }
+        step();
+      }
+
+      var ALICE_STORIES = [
+`ALICE
+  O
+ /|\\
+ / \\
+
+SCENARIO A: KEY CHECK
+01) New "Bob" key appears online.
+02) Alice pauses high-risk messages.
+03) Fingerprint checked on second channel.
+04) Only verified key is trusted.`,
+`ALICE
+  O
+ /|\\
+ / \\
+
+SCENARIO B: FILE TRANSFER
+01) Sensitive payload needs delivery.
+02) Encrypt with Bob public key.
+03) Add detached signature for provenance.
+04) Push ciphertext only, zero plaintext.`,
+`ALICE
+  O
+ /|\\
+ / \\
+
+SCENARIO C: MAILBOX ALERT
+01) Mail provider reports suspicious access.
+02) Alice assumes mailbox is under collection.
+03) Moves intel into encrypted payloads only.
+04) No cleartext crosses the wire.`,
+`ALICE
+  O
+ /|\\
+ / \\
+
+SCENARIO D: KEY REPLACEMENT
+01) Unexpected key update is posted.
+02) Alice compares against pinned fingerprint.
+03) Mismatch is caught in preflight.
+04) Rogue key is rejected and logged.`,
+`ALICE
+  O
+ /|\\
+ / \\
+
+SCENARIO E: RECOVERY
+01) Bob reports potential key exposure.
+02) Alice hard-stops encrypted sends.
+03) Waits for signed replacement notice.
+04) Re-verifies and resumes secure traffic.`
+      ];
+
+      var BOB_STORIES = [
+`BOB
+  O
+ /|\\
+ / \\
+
+SCENARIO A: KEY CHECK
+01) Bob republishes key + fingerprint.
+02) Sends signed status update.
+03) Alice verifies signature.
+04) Trust path stays clean.`,
+`BOB
+  O
+ /|\\
+ / \\
+
+SCENARIO B: FILE TRANSFER
+01) Ciphertext arrives from Alice.
+02) Bob decrypts with private key + passphrase.
+03) Signature validates origin and integrity.
+04) Sensitive data stays encrypted in transit.`,
+`BOB
+  O
+ /|\\
+ / \\
+
+SCENARIO C: HOST RISK
+01) Endpoint shows malware indicators.
+02) Bob migrates key ops to clean host.
+03) Uses revocation cert if required.
+04) Rotates keypair and republishes.`,
+`BOB
+  O
+ /|\\
+ / \\
+
+SCENARIO D: ROUTE ASSUMPTION
+01) Bob assumes traffic can be intercepted.
+02) Signs every outbound message.
+03) Encrypts replies containing sensitive data.
+04) Metadata may leak, payload does not.`,
+`BOB
+  O
+ /|\\
+ / \\
+
+SCENARIO E: RECOVERY
+01) Backup key imported on new machine.
+02) Passphrase unlock confirmed.
+03) Signed recovery notice sent to Alice.
+04) Encrypted channel restored cleanly.`
+      ];
+
+      var KEY_BLOCK = `-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQINBGoBohcBEADA1d8iDpfa7PT4u+vmoATP25Imxu8BC4uMc3IhVesoUPHoQgKV
+aYTQe66RhxvLPMgvqmO6T+I4ZS1Mt2Hnx3XMGjOSFwnScEcx2kpqagKCh9Bu2B2/
+4lcUZZAJzVgULBMkJG2aX/brTslxDqPQ6LtnFpdjDMlGGqGHDZCId1rxZmEu8x/Z
+qs2ys07ZFWeKdvqVG/TRzn9yvqNQN9eTj6LkqU3lE/NcoJabvghVgAVzdBb4+2XN
+BQZvBf7UbkLX4NJh3kkj8ELTw9NRMBfhoWxD8WCGmM7i5c0EPRq47MLHdkieJiWf
+iCLe0fOxdz5401dSQvU15D931MI0xnZfu4jLKSA1sx2dfxr0WLFdsrfj3V1DUjnk
+RCb1p45lgicKK6Y/XJcLn/cFLqfdp2YalJAbKEyO2+vkeME8PJt7E9vCdwtz6wez
+kh0wLuJx8oW9Q5vaPadkN2kYyi2mJnuIQ6Qbt33r2McNhSig5C1QeEnFV1BPBA4o
+OUb5u/z7E9NDFKUM8m56ndj9KV7fFG89mSevjEIoPlOj3lkKKQhB7bzv5fg3EgwX
+vVVbh278tu9GeIprYE6cjg52imZkmV2Iyuc+wtXpbwHrv9zmQaqY0i0kpZBk1mZ0
+jKeHvb1AygBh1uy39Wps0W3L+mabfDHsgQippZpdS3iEbGqScstB1pYL5QARAQAB
+tBdBZGF5IDxhZGF5QGFkYXkubmV0LmF1PokCcwQTAQgAXRYhBBpz8DkaCMEkT046
+BVd1W/M3SDsdBQJqAaIXGxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDIsMQIbDwUJ
+AiK0iQULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRBXdVvzN0g7HfKGEACj
+okEBspP9BeM+8iN6AYMGl70NSPpVaDsWOg0ihN0sxhPbXwUNZSI1rBi8XCZztYuU
+eFJpRWe+zmiv5e4cG4SaSYgjL7J1PGOUyKlxDdW9cWC6VSg3SSxAzzz+3ENyp0xP
+dMU65EfBhGjL8gOUyng6WTgTeGmsGrJOrArYRShtTKnMk4a1xEPCLJpTxTAzftZL
+d3zp+xOcjdFdM9wY2QZCVnxfuV9CYUPnlxtbTBrCieniPxVxrdwUEaa511UmRDAy
+ErimbfadnMVZjYWOgjcFouid7RZznDARf2+Z3vUFj4K/2Gtaly6hwAwRze0ey1wb
+V13hnVXxClSSz8We3/x0fqrCMRfD95uhsCE8uFFac/TwLLcCX0H+GpB/AxMaH93Q
+rSv+UpnNSd/5m8V8teQjx3LFZSYCRifJdQRTkoOetLUNWKmrkQCELSsKJc6T3Vrb
+2d0SHkaH7DaMW3bY7V42qCuRfqFsqXOsbxw744TTis1vxTHN6CJcxaLTJJEKIeN3
+YYQBifExRtlDu1zfaOMtaugfscqOJgj+OMCbDBNrCayKA8G60LVSP5/p35PeBpJW
+Ih+CltUcqiBLyo/KPPnI7VxkT3IJu5XKvikJ43EmWOdfIWZErF99rASeO6/D5/+k
+1jFT7ydetbL8LmBKpn2NO3ySvkT25L2e/UhuYfzRzw==
+=W1hu
+-----END PGP PUBLIC KEY BLOCK-----`;
+
+      function typeIntoTextarea(el, fullText, speed, done) {
+        var i = 0;
+        el.value = "";
+        if (keyBlockWrap) keyBlockWrap.classList.add("is-typing");
+        function step() {
+          if (i < fullText.length) {
+            el.value += fullText.charAt(i);
+            i += 1;
+            fitKeyBox();
+            setTimeout(step, speed);
+          } else {
+            if (keyBlockWrap) keyBlockWrap.classList.remove("is-typing");
+            if (done) done();
+          }
+        }
+        step();
+      }
+
+      function drawStoryPair(aliceText, bobText) {
+        aliceStory.classList.add("story-fade-out");
+        bobStory.classList.add("story-fade-out");
+        setTimeout(function () {
+          typeInto(aliceStory, aliceText, 5);
+          typeInto(bobStory, bobText, 5);
+          aliceStory.classList.remove("story-fade-out");
+          bobStory.classList.remove("story-fade-out");
+        }, 230);
+      }
+
+      var storyIndex = 0;
+      drawStoryPair(ALICE_STORIES[storyIndex], BOB_STORIES[storyIndex]);
+      setInterval(function () {
+        storyIndex = (storyIndex + 1) % ALICE_STORIES.length;
+        drawStoryPair(ALICE_STORIES[storyIndex], BOB_STORIES[storyIndex]);
+      }, 19600);
+      typeIntoTextarea(keyBox, KEY_BLOCK, 1);
+
+      readmeModal.classList.remove("is-open");
+      importModal.classList.remove("is-open");
+
+      function openReadme() {
+        importModal.classList.remove("is-open");
+        readmeModal.classList.add("is-open");
+      }
+
+      function closeReadme() {
+        readmeModal.classList.remove("is-open");
+      }
+
+      function openImport() {
+        readmeModal.classList.remove("is-open");
+        importModal.classList.add("is-open");
+      }
+
+      function closeImport() {
+        importModal.classList.remove("is-open");
+      }
+
+      readmeBtn.addEventListener("click", openReadme);
+      closeReadmeBtn.addEventListener("click", closeReadme);
+      importBtn.addEventListener("click", openImport);
+      closeImportBtn.addEventListener("click", closeImport);
+      readmeModal.addEventListener("click", function (e) {
+        if (e.target === readmeModal) closeReadme();
+      });
+      importModal.addEventListener("click", function (e) {
+        if (e.target === importModal) closeImport();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && readmeModal.classList.contains("is-open")) closeReadme();
+        if (e.key === "Escape" && importModal.classList.contains("is-open")) closeImport();
+      });
+
+      if (window.mermaid) {
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: "base",
+          securityLevel: "loose",
+          sequence: {
+            useMaxWidth: true,
+            wrap: false
+          },
+          themeVariables: {
+            fontSize: "14px",
+            primaryColor: "#140005",
+            primaryTextColor: "#ffd2d4",
+            primaryBorderColor: "#d7001e",
+            lineColor: "#ff8388",
+            actorBkg: "#100004",
+            actorBorder: "#d7001e",
+            actorTextColor: "#ffd2d4",
+            noteBkgColor: "#1a0007",
+            noteBorderColor: "#d7001e",
+            noteTextColor: "#ffd2d4",
+            signalColor: "#ff8388",
+            signalTextColor: "#ffd2d4"
+          }
+        });
+        mermaid.run({
+          querySelector: ".mermaid"
+        });
+        setTimeout(function () {
+          var flowSvg = document.querySelector(".mermaid-flow svg");
+          if (flowSvg) {
+            flowSvg.style.paddingLeft = "12px";
+            flowSvg.style.paddingRight = "12px";
+            flowSvg.style.paddingTop = "32px";
+            flowSvg.style.boxSizing = "border-box";
+            flowSvg.style.fontSize = "18px";
+            flowSvg.style.fontWeight = "300";
+            flowSvg.style.marginBottom = "18px";
+            flowSvg.style.overflow = "visible";
+          }
+        }, 80);
+      }
+    })();
+  </script>
 </body>
 </html>
