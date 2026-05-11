@@ -12,11 +12,9 @@
     <div class="side-guide side-guide-left" aria-hidden="true">
       <pre id="aliceStory" class="type-target"></pre>
     </div>
-
     <div class="side-guide side-guide-right" aria-hidden="true">
       <pre id="bobStory" class="type-target"></pre>
     </div>
-
     <div class="screen">
       <h3 class="title">CONNECTION ESTABLISHED - PUBLIC KEY aday@aday.net.au</h3>
       <div class="box--outer">
@@ -24,25 +22,43 @@
           <div class="box--inner">
             <div class="content">
               <div class="holder">
-                <p class="status-line">UID: aday@aday.net.au</p>
+                <p id="pgpStatusLine" class="status-line">PRIMARY PGP KEY (PASSPHRASED)</p>
+                <p class="status-subline">play safe</p>
 
                 <div class="row">
                   <div class="col col__center">
-                    <p class="label-line">PUBLIC KEY (ASCII ARMORED)</p>
-                    <div class="key-block">
+                    <p id="pgpLabelLine" class="label-line">PRIMARY PGP PUBLIC KEY (ASCII ARMORED)</p>
+                    <div class="key-block pgp-main-block">
                       <button id="copyKeyBtn" class="tool-btn copy-btn" type="button">COPY KEY</button>
                       <textarea id="pgpBlock" readonly></textarea>
                     </div>
-                    <p class="meta-line">Fingerprint: 1A73 F039 1A08 C124 4F4E 3A05 5775 5BF3 3748 3B1D | Key ID: 57755BF337483B1D | Expires: 2027-06-30</p>
+                    <p id="pgpMetaLine" class="meta-line">Primary fingerprint: 1A73 F039 1A08 C124 4F4E 3A05 5775 5BF3 3748 3B1D | Key ID: 57755BF337483B1D | EXPIRES: 2027-06-30</p>
                     <p class="meta-actions">
                       <button id="copyFingerprintBtn" class="tool-btn copy-fp-btn" type="button">COPY FINGERPRINT</button>
+                      <button id="cyclePgpTierBtn" class="tool-btn copy-fp-btn" type="button">SHOW ALTERNATE (TIER 2)</button>
+                      <button id="copyTier2Btn" class="tool-btn copy-fp-btn" type="button">COPY ALTERNATE (TIER 2)</button>
                     </p>
+                    <p class="meta-line ssh-meta-line">Primary SSH: Key #2 (passphrased) | Alternate SSH: Key #1 (non-passphrased)</p>
+                    <div class="ssh-grid">
+                      <div class="key-block ssh-key-block">
+                        <p class="label-line ssh-key-title">PRIMARY SSH KEY (PASSPHRASED)</p>
+                        <button id="copySsh2Btn" class="tool-btn copy-btn" type="button">COPY PRIMARY SSH</button>
+                        <textarea id="sshPrimaryBlock" readonly></textarea>
+                      </div>
+                      <div class="key-block ssh-key-block">
+                        <p class="label-line ssh-key-title">ALTERNATE SSH KEY (NON-PASSPHRASED)</p>
+                        <button id="copySsh1Btn" class="tool-btn copy-btn" type="button">COPY ALT SSH</button>
+                        <textarea id="sshAlternateBlock" readonly></textarea>
+                      </div>
+                    </div>
                     <p class="tools-line">
                       Tools:
                       <button id="readmeBtn" class="tool-link-btn" type="button">README</button> |
+                      <button id="oneLinersBtn" class="tool-link-btn" type="button">One-liners</button> |
                       <a href="https://github.com/aday1/keys-aday-net-au/blob/main/public/tools/gpg-keygen-windows.ps1" target="_blank" rel="noopener noreferrer">Windows keygen script</a> |
                       <a href="https://github.com/aday1/keys-aday-net-au/blob/main/public/tools/gpg-keygen-linux.sh" target="_blank" rel="noopener noreferrer">Linux keygen script</a> |
-                      <button id="importBtn" class="tool-link-btn" type="button">Import guide</button>
+                      <button id="importBtn" class="tool-link-btn" type="button">Import guide</button> |
+                      <button id="sshHelpBtn" class="tool-link-btn" type="button">SSH help</button>
                     </p>
                   </div>
                 </div>
@@ -131,190 +147,108 @@ gpg --decrypt test.txt.asc</pre>
       </div>
     </div>
   </div>
+  <div id="oneLinersModal" class="modal-backdrop">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="oneLinersTitle">
+      <div class="modal-header">
+        <p id="oneLinersTitle">PGP ONE-LINERS (NO .PS1/.SH FILE)</p>
+        <button id="closeOneLinersBtn" class="tool-btn" type="button">CLOSE</button>
+      </div>
+      <div class="modal-stack">
+        <div class="modal-top">
+          <p class="modal-section-title">WINDOWS POWERSHELL</p>
+          <button id="copyWinOneLinerBtn" class="tool-btn" type="button">COPY WINDOWS ONE-LINER</button>
+          <pre class="modal-text" id="winOneLinerText"></pre>
+        </div>
+        <div class="modal-divider"></div>
+        <div class="modal-bottom">
+          <p class="modal-section-title">LINUX SHELL</p>
+          <button id="copyLinuxOneLinerBtn" class="tool-btn" type="button">COPY LINUX ONE-LINER</button>
+          <pre class="modal-text" id="linuxOneLinerText"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="sshModal" class="modal-backdrop">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="sshTitle">
+      <div class="modal-header">
+        <p id="sshTitle">SSH QUICK USE</p>
+        <button id="closeSshBtn" class="tool-btn" type="button">CLOSE</button>
+      </div>
+      <div class="modal-stack">
+        <div class="modal-top">
+          <p class="modal-section-title">SERVER SIDE</p>
+          <pre class="modal-text"># Create .ssh and lock perms
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+
+# Add either key #1 or key #2 public key
+echo "ssh-ed25519 AAAA..." >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys</pre>
+        </div>
+        <div class="modal-divider"></div>
+        <div class="modal-bottom">
+          <p class="modal-section-title">CLIENT SIDE</p>
+          <pre class="modal-text"># Key #1 (non-passphrased)
+ssh -i ~/.ssh/id_ed25519_key1_nopass user@host
+
+# Key #2 (passphrased)
+ssh -i ~/.ssh/id_ed25519_key2_passphrased user@host
+
+# Optional config entry
+Host my-box
+  HostName host-or-ip
+  User user
+  IdentityFile ~/.ssh/id_ed25519_key2_passphrased</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="crtCursor" class="crt-cursor" aria-hidden="true"></div>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     (function () {
       var copyBtn = document.getElementById("copyKeyBtn");
       var copyFingerprintBtn = document.getElementById("copyFingerprintBtn");
+      var cyclePgpTierBtn = document.getElementById("cyclePgpTierBtn");
+      var copyTier2Btn = document.getElementById("copyTier2Btn");
+      var copySsh1Btn = document.getElementById("copySsh1Btn");
+      var copySsh2Btn = document.getElementById("copySsh2Btn");
       var keyBox = document.getElementById("pgpBlock");
-      var keyBlockWrap = document.querySelector(".key-block");
+      var sshPrimaryBox = document.getElementById("sshPrimaryBlock");
+      var sshAlternateBox = document.getElementById("sshAlternateBlock");
+      var pgpStatusLine = document.getElementById("pgpStatusLine");
+      var pgpLabelLine = document.getElementById("pgpLabelLine");
+      var pgpMetaLine = document.getElementById("pgpMetaLine");
+      var crtCursor = document.getElementById("crtCursor");
+      var aliceStory = document.getElementById("aliceStory");
+      var bobStory = document.getElementById("bobStory");
       var readmeBtn = document.getElementById("readmeBtn");
       var readmeModal = document.getElementById("readmeModal");
       var closeReadmeBtn = document.getElementById("closeReadmeBtn");
+      var oneLinersBtn = document.getElementById("oneLinersBtn");
+      var oneLinersModal = document.getElementById("oneLinersModal");
+      var closeOneLinersBtn = document.getElementById("closeOneLinersBtn");
+      var copyWinOneLinerBtn = document.getElementById("copyWinOneLinerBtn");
+      var copyLinuxOneLinerBtn = document.getElementById("copyLinuxOneLinerBtn");
+      var winOneLinerText = document.getElementById("winOneLinerText");
+      var linuxOneLinerText = document.getElementById("linuxOneLinerText");
       var importBtn = document.getElementById("importBtn");
       var importModal = document.getElementById("importModal");
       var closeImportBtn = document.getElementById("closeImportBtn");
-      var aliceStory = document.getElementById("aliceStory");
-      var bobStory = document.getElementById("bobStory");
-      var FINGERPRINT = "1A73 F039 1A08 C124 4F4E 3A05 5775 5BF3 3748 3B1D";
+      var sshHelpBtn = document.getElementById("sshHelpBtn");
+      var sshModal = document.getElementById("sshModal");
+      var closeSshBtn = document.getElementById("closeSshBtn");
 
-      copyBtn.addEventListener("click", function () {
-        var text = keyBox.value;
-        navigator.clipboard.writeText(text).then(function () {
-          copyBtn.textContent = "COPIED";
-          setTimeout(function () {
-            copyBtn.textContent = "COPY";
-          }, 1400);
-        }).catch(function () {
-          keyBox.select();
-          document.execCommand("copy");
-          copyBtn.textContent = "COPIED";
-          setTimeout(function () {
-            copyBtn.textContent = "COPY";
-          }, 1400);
-        });
-      });
-
-      copyFingerprintBtn.addEventListener("click", function () {
-        navigator.clipboard.writeText(FINGERPRINT).then(function () {
-          copyFingerprintBtn.textContent = "COPIED";
-          setTimeout(function () {
-            copyFingerprintBtn.textContent = "COPY FINGERPRINT";
-          }, 1400);
-        }).catch(function () {
-          var temp = document.createElement("textarea");
-          temp.value = FINGERPRINT;
-          document.body.appendChild(temp);
-          temp.select();
-          document.execCommand("copy");
-          document.body.removeChild(temp);
-          copyFingerprintBtn.textContent = "COPIED";
-          setTimeout(function () {
-            copyFingerprintBtn.textContent = "COPY FINGERPRINT";
-          }, 1400);
-        });
-      });
-
-      function fitKeyBox() {
-        keyBox.style.height = "1px";
-        keyBox.style.height = (keyBox.scrollHeight + 2) + "px";
-      }
-      fitKeyBox();
-      window.addEventListener("resize", fitKeyBox);
-      setTimeout(fitKeyBox, 60);
-
-      function typeInto(el, fullText, speed, done) {
-        var i = 0;
-        el.textContent = "";
-        function step() {
-          if (i < fullText.length) {
-            el.textContent += fullText.charAt(i);
-            i += 1;
-            setTimeout(step, speed);
-          } else if (done) {
-            done();
-          }
-        }
-        step();
-      }
-
-      var ALICE_STORIES = [
-`ALICE
-  O
- /|\\
- / \\
-
-SCENARIO A: KEY CHECK
-01) New "Bob" key appears online.
-02) Alice pauses high-risk messages.
-03) Fingerprint checked on second channel.
-04) Only verified key is trusted.`,
-`ALICE
-  O
- /|\\
- / \\
-
-SCENARIO B: FILE TRANSFER
-01) Sensitive payload needs delivery.
-02) Encrypt with Bob public key.
-03) Add detached signature for provenance.
-04) Push ciphertext only, zero plaintext.`,
-`ALICE
-  O
- /|\\
- / \\
-
-SCENARIO C: MAILBOX ALERT
-01) Mail provider reports suspicious access.
-02) Alice assumes mailbox is under collection.
-03) Moves intel into encrypted payloads only.
-04) No cleartext crosses the wire.`,
-`ALICE
-  O
- /|\\
- / \\
-
-SCENARIO D: KEY REPLACEMENT
-01) Unexpected key update is posted.
-02) Alice compares against pinned fingerprint.
-03) Mismatch is caught in preflight.
-04) Rogue key is rejected and logged.`,
-`ALICE
-  O
- /|\\
- / \\
-
-SCENARIO E: RECOVERY
-01) Bob reports potential key exposure.
-02) Alice hard-stops encrypted sends.
-03) Waits for signed replacement notice.
-04) Re-verifies and resumes secure traffic.`
-      ];
-
-      var BOB_STORIES = [
-`BOB
-  O
- /|\\
- / \\
-
-SCENARIO A: KEY CHECK
-01) Bob republishes key + fingerprint.
-02) Sends signed status update.
-03) Alice verifies signature.
-04) Trust path stays clean.`,
-`BOB
-  O
- /|\\
- / \\
-
-SCENARIO B: FILE TRANSFER
-01) Ciphertext arrives from Alice.
-02) Bob decrypts with private key + passphrase.
-03) Signature validates origin and integrity.
-04) Sensitive data stays encrypted in transit.`,
-`BOB
-  O
- /|\\
- / \\
-
-SCENARIO C: HOST RISK
-01) Endpoint shows malware indicators.
-02) Bob migrates key ops to clean host.
-03) Uses revocation cert if required.
-04) Rotates keypair and republishes.`,
-`BOB
-  O
- /|\\
- / \\
-
-SCENARIO D: ROUTE ASSUMPTION
-01) Bob assumes traffic can be intercepted.
-02) Signs every outbound message.
-03) Encrypts replies containing sensitive data.
-04) Metadata may leak, payload does not.`,
-`BOB
-  O
- /|\\
- / \\
-
-SCENARIO E: RECOVERY
-01) Backup key imported on new machine.
-02) Passphrase unlock confirmed.
-03) Signed recovery notice sent to Alice.
-04) Encrypted channel restored cleanly.`
-      ];
-
-      var KEY_BLOCK = `-----BEGIN PGP PUBLIC KEY BLOCK-----
+      var TIER1_FINGERPRINT = "1A73 F039 1A08 C124 4F4E 3A05 5775 5BF3 3748 3B1D";
+      var TIER2_FINGERPRINT = "CBD4 57CB E853 472E 69D2 E556 5998 5C89 6889 631B";
+      var TIER1_KEY_ID = "57755BF337483B1D";
+      var TIER2_KEY_ID = "59985C896889631B";
+      var PGP_EXPIRES = "2027-06-30";
+      var SSH_KEY_1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMj8IwySWo0CJ+5GoRIn2vWI/eTJH2erf4buQGgTPytN Key #1 (non-passphrased) - aday@aday.net.au";
+      var SSH_KEY_2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKKNRwo8otC1Gc7hzJb24qh88kapSaJR9G16A458YbnH Key #2 (passphrased) - aday@aday.net.au";
+      var WIN_ONE_LINER = "$uid='Aday <aday@aday.net.au>';$exp='2027-06-30';$out=\"$env:USERPROFILE\\Desktop\\pgp-exports\";New-Item -ItemType Directory -Force -Path $out|Out-Null;gpg --quick-gen-key \"$uid\" rsa4096 cert,sign,encr \"$exp\";$kid=(gpg --list-keys --with-colons \"$uid\"|ForEach-Object{if($_ -match '^pub:'){($_ -split ':')[4]}}|Select-Object -First 1);gpg --armor --output \"$out\\aday-public-$kid.asc\" --export \"$uid\";gpg --armor --output \"$out\\aday-private-$kid.asc\" --export-secret-keys \"$uid\";gpg --output \"$out\\aday-revoke-$kid.rev\" --gen-revoke \"$uid\"";
+      var LINUX_ONE_LINER = "( uid='Aday <aday@aday.net.au>'; exp='2027-06-30'; out=\"$HOME/pgp-exports\"; mkdir -p \"$out\"; gpg --quick-gen-key \"$uid\" rsa4096 cert,sign,encr \"$exp\"; kid=\"$(gpg --list-keys --with-colons \"$uid\" | awk -F: '/^pub:/{print $5; exit}')\"; gpg --armor --output \"$out/aday-public-$kid.asc\" --export \"$uid\"; gpg --armor --output \"$out/aday-private-$kid.asc\" --export-secret-keys \"$uid\"; gpg --output \"$out/aday-revoke-$kid.rev\" --gen-revoke \"$uid\" )";
+      var TIER1_BLOCK = `-----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mQINBGoBohcBEADA1d8iDpfa7PT4u+vmoATP25Imxu8BC4uMc3IhVesoUPHoQgKV
 aYTQe66RhxvLPMgvqmO6T+I4ZS1Mt2Hnx3XMGjOSFwnScEcx2kpqagKCh9Bu2B2/
@@ -343,49 +277,300 @@ Ih+CltUcqiBLyo/KPPnI7VxkT3IJu5XKvikJ43EmWOdfIWZErF99rASeO6/D5/+k
 1jFT7ydetbL8LmBKpn2NO3ySvkT25L2e/UhuYfzRzw==
 =W1hu
 -----END PGP PUBLIC KEY BLOCK-----`;
+      var TIER2_BLOCK = `-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQINBGoBq6IBEADBS7C9YezfiQDWLUG/SI4kJTlt4TIr++hf8Y2BRasDRun+6u2+
+WRQ7byWaFkkP9z9l5n41tnjk1z8p2eNQLhY0vY+8knzLGSkLwkKOXDw2IkKlaP+y
++JjWL9S0zpRDADbGT5Nl4LD0CK/R7fILWQ6+Zo/M58Mi+pgtqIJP3vKGoNPL+yv+
+p1wFpK0an8KFtKqvjyTQ2Rb3vefLbLtR5OI9OVfBxCUgMiil+cCPzdHWn4F2HIKV
+HQqQQ9jTj57yclHPopg/reELjFnRiWOXs4Bq+qj7Hwqn1ESItT0WwDigi48hIBzo
+FrWEzIgocLhGIKN3y4V75omVEYmDsgUUQc/vDc9MwHg6qVcR1ZZpIVcY6XFWcZzx
+c4EBeUR6qK1xg6szkJscO6VF4leyIQo3QqDEUrKsQ0CCULQs6r8pyt6JIN5g2GiO
+9OFGecCydTumvMlUwHKuQ282cwqLZXGM9N/yOuum0fC2KTis7hcRKoVlPYBZOZl/
+I8lm7DuFBMFmk2TyJfAV+FmM6VsNPAP2RuHIjdMwSVIvFmWOygUUn8CyTJUmcO8P
+7Gwv0ET7zZbjBRWcm+WKikIY7YoFe9DlfsdSRc0FPRVcQNJ7MY2pXiu0mjDYEsas
+wWfP0uCuwDtjD5CT7iUUPcITemDy7Jy83yo69jBfQWjA8Mnnv0n6jK6iVQARAQAB
+tCBBZGF5IDJuZCBUaWVyIDxhZGF5QGFkYXkubmV0LmF1PokCcwQTAQgAXRYhBMvU
+V8voU0cuadLlVlmYXIloiWMbBQJqAauiGxSAAAAAAAQADm1hbnUyLDIuNSsxLjEy
+LDIsMQIbDwUJAiKq/gULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRBZmFyJ
+aIljGyHMEACqS8TqHPX7sL/NNTHiXHJYsD+o2xkoOUL+/pAY1rbWFZRPf/jrXmvc
+3S4NENC92qAArv8FaxCrXBoF167u2OQNXa5gTgKKJKZ/cqKBzNYMJOictzujJHf3
+q6OAzlFnDEtNBIR61TptN0ibmdmBLO92HKnK9tlMIWTmO0s0utFg7R3U/YtFKyBg
+LF3Nfc3/Xw0pZ0iZyksLOa1hxXH9ChWxwHQ0iomwnJMNydF5hJ5qoSLZnI/0vEYh
+cyGbj9wqRttYOO8MTtUIxciQv5yA1bR/WNGf4SYBpPHANhAUTl1H4Hj5QU2VTBJx
+Y3sE6OGTZPtLwO9jqJaHSKbGdYOPXqaMg8yaAGweDhovPlFh54/W+6Ss1rk7cN41
+gLPg9+Z9h/NXRpQq70prKlOGSyR5xk6oBwx9w58X61Em1oIwU1zLDmiW+TVbtnAn
+mEWJy8meysnBS9rFcnKPd1qWL7QHf1yn0VJMsaz+ah2cowcC2q3/CXGqltOux7dj
+q7Sm14PlKn9ZNXnoANvRmmjeFHQdNYoHGteN3Z/G15JD0SJVvs14ROfEBNm/X9OE
+MIQZqIld0wZfzzL4m5LJOhA+cOWvw3CWoTpZlVTlGJeES62lXzPM+FQt2ThBlQu7
+iAhN857+COvboLk2rnovqc2D9mOpkCNTWA/dPiqbH5nbDrQfKtFjrA==
+=zEec
+-----END PGP PUBLIC KEY BLOCK-----`;
+
+      var currentPgpTier = 1;
+      var expiryTicker = null;
+
+      function getExpiryCountdownText(isoDate) {
+        var target = new Date(isoDate + "T23:59:59");
+        var now = new Date();
+        var diff = target.getTime() - now.getTime();
+        if (diff <= 0) return "EXPIRED";
+        var totalSeconds = Math.floor(diff / 1000);
+        var days = Math.floor(totalSeconds / 86400);
+        var hours = Math.floor((totalSeconds % 86400) / 3600);
+        var mins = Math.floor((totalSeconds % 3600) / 60);
+        var secs = totalSeconds % 60;
+        return days + "d " + String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
+      }
+
+      function renderPgpMeta() {
+        var isPrimary = currentPgpTier === 1;
+        var fp = isPrimary ? TIER1_FINGERPRINT : TIER2_FINGERPRINT;
+        var keyId = isPrimary ? TIER1_KEY_ID : TIER2_KEY_ID;
+        var prefix = isPrimary ? "Primary fingerprint: " : "Alternate (tier 2) fingerprint: ";
+        var countdown = getExpiryCountdownText(PGP_EXPIRES);
+        pgpMetaLine.innerHTML = prefix + fp +
+          " | Key ID: " + keyId +
+          " | <span class=\"expires-tag\">EXPIRES:</span> <span class=\"expires-date\">" + PGP_EXPIRES + "</span> " +
+          "<span class=\"expires-countdown\">[" + countdown + "]</span>";
+      }
+
+      function startExpiryTicker() {
+        if (expiryTicker) clearInterval(expiryTicker);
+        renderPgpMeta();
+        expiryTicker = setInterval(renderPgpMeta, 1000);
+      }
+
+      function fitBox(el) {
+        if (!el) return;
+        el.style.height = "1px";
+        el.style.height = (el.scrollHeight + 2) + "px";
+      }
 
       function typeIntoTextarea(el, fullText, speed, done) {
         var i = 0;
+        var chunk = speed <= 0 ? 22 : speed <= 1 ? 12 : 1;
         el.value = "";
-        if (keyBlockWrap) keyBlockWrap.classList.add("is-typing");
+        if (el.parentElement) el.parentElement.classList.add("is-typing");
         function step() {
           if (i < fullText.length) {
-            el.value += fullText.charAt(i);
-            i += 1;
-            fitKeyBox();
+            var next = Math.min(i + chunk, fullText.length);
+            el.value += fullText.slice(i, next);
+            i = next;
+            fitBox(el);
             setTimeout(step, speed);
           } else {
-            if (keyBlockWrap) keyBlockWrap.classList.remove("is-typing");
+            if (el.parentElement) el.parentElement.classList.remove("is-typing");
             if (done) done();
           }
         }
         step();
       }
 
-      function drawStoryPair(aliceText, bobText) {
-        aliceStory.classList.add("story-fade-out");
-        bobStory.classList.add("story-fade-out");
-        setTimeout(function () {
-          typeInto(aliceStory, aliceText, 5);
-          typeInto(bobStory, bobText, 5);
-          aliceStory.classList.remove("story-fade-out");
-          bobStory.classList.remove("story-fade-out");
-        }, 230);
+      function typeStory(el, text, speed, done) {
+        var i = 0;
+        el.textContent = "";
+        function step() {
+          if (i < text.length) {
+            el.textContent += text.charAt(i);
+            i += 1;
+            setTimeout(step, speed);
+          } else if (done) {
+            done();
+          }
+        }
+        step();
       }
 
-      var storyIndex = 0;
-      drawStoryPair(ALICE_STORIES[storyIndex], BOB_STORIES[storyIndex]);
-      setInterval(function () {
-        storyIndex = (storyIndex + 1) % ALICE_STORIES.length;
-        drawStoryPair(ALICE_STORIES[storyIndex], BOB_STORIES[storyIndex]);
-      }, 19600);
-      typeIntoTextarea(keyBox, KEY_BLOCK, 1);
+      var ALICE_STORY_LINES = [
+`ALICE
+ O
+/|\\
+/ \\
+SCENARIO A: KEY CHECK
+VERIFY PRIMARY FP
+BEFORE TRUST.`,
+`ALICE
+ O
+/|\\
+/ \\
+SCENARIO B: FILE SEND
+ENCRYPT TO BOB PUB
+SEND CIPHERTEXT.`,
+`ALICE
+ O
+/|\\
+/ \\
+SCENARIO C: KEY SWAP
+UNPINNED KEY = FAIL
+REJECT + RECHECK.`,
+`ALICE
+ O
+/|\\
+/ \\
+SCENARIO D: OPSEC
+NO PLAINTEXT LEAVES
+HER WORKSTATION.`,
+`ALICE
+ O
+/|\\
+/ \\
+SCENARIO E: RECOVERY
+WAITS FOR SIGNED
+REPLACEMENT NOTICE.`
+      ];
+
+      var BOB_STORY_LINES = [
+`BOB
+ O
+/|\\
+/ \\
+SCENARIO A: KEY CHECK
+PUBLISHES KEY + FP
+SIGNS STATUS NOTE.`,
+`BOB
+ O
+/|\\
+/ \\
+SCENARIO B: FILE RECEIVE
+DECRYPT WITH PRIV
+PLUS PASSPHRASE.`,
+`BOB
+ O
+/|\\
+/ \\
+SCENARIO C: VERIFY
+VALIDATE SIGNATURE
+THEN TRUST PAYLOAD.`,
+`BOB
+ O
+/|\\
+/ \\
+REVOKE CERT STAYS
+OFFLINE + READY.`,
+`BOB
+ O
+/|\\
+/ \\
+SCENARIO E: ROTATE
+PUBLISH NEW KEY
+AFTER COMPROMISE.`
+      ];
+
+      function cycleStoryFeeds() {
+        var idx = 0;
+        function draw() {
+          aliceStory.classList.add("story-fade-out");
+          bobStory.classList.add("story-fade-out");
+          setTimeout(function () {
+            typeStory(aliceStory, ALICE_STORY_LINES[idx], 6);
+            typeStory(bobStory, BOB_STORY_LINES[idx], 6);
+            aliceStory.classList.remove("story-fade-out");
+            bobStory.classList.remove("story-fade-out");
+            idx = (idx + 1) % ALICE_STORY_LINES.length;
+          }, 180);
+        }
+        draw();
+        setInterval(draw, 9300);
+      }
+
+      function setPgpTier(tier, animate) {
+        currentPgpTier = tier;
+        if (tier === 1) {
+          pgpStatusLine.textContent = "PRIMARY PGP KEY (PASSPHRASED)";
+          pgpLabelLine.textContent = "PRIMARY PGP PUBLIC KEY (ASCII ARMORED)";
+          renderPgpMeta();
+          cyclePgpTierBtn.textContent = "SHOW ALTERNATE (TIER 2)";
+          if (animate) {
+            typeIntoTextarea(keyBox, TIER1_BLOCK, 1);
+          } else {
+            keyBox.value = TIER1_BLOCK;
+            fitBox(keyBox);
+          }
+        } else {
+          pgpStatusLine.textContent = "ALTERNATE PGP KEY (TIER 2, NON-PASSPHRASED)";
+          pgpLabelLine.textContent = "ALTERNATE PGP PUBLIC KEY (TIER 2)";
+          renderPgpMeta();
+          cyclePgpTierBtn.textContent = "SHOW PRIMARY";
+          if (animate) {
+            typeIntoTextarea(keyBox, TIER2_BLOCK, 0);
+          } else {
+            keyBox.value = TIER2_BLOCK;
+            fitBox(keyBox);
+          }
+        }
+      }
+
+      function copyTextWithState(button, text, resetLabel) {
+        navigator.clipboard.writeText(text).then(function () {
+          button.textContent = "COPIED";
+          setTimeout(function () {
+            button.textContent = resetLabel;
+          }, 1400);
+        }).catch(function () {
+          var temp = document.createElement("textarea");
+          temp.value = text;
+          document.body.appendChild(temp);
+          temp.select();
+          document.execCommand("copy");
+          document.body.removeChild(temp);
+          button.textContent = "COPIED";
+          setTimeout(function () {
+            button.textContent = resetLabel;
+          }, 1400);
+        });
+      }
+
+      function copyTextSilently(text) {
+        navigator.clipboard.writeText(text).catch(function () {
+          var temp = document.createElement("textarea");
+          temp.value = text;
+          document.body.appendChild(temp);
+          temp.select();
+          document.execCommand("copy");
+          document.body.removeChild(temp);
+        });
+      }
+
+      copyBtn.addEventListener("click", function () {
+        copyTextWithState(copyBtn, keyBox.value, "COPY");
+      });
+      copyWinOneLinerBtn.addEventListener("click", function () { copyTextWithState(copyWinOneLinerBtn, WIN_ONE_LINER, "COPY WINDOWS ONE-LINER"); });
+      copyLinuxOneLinerBtn.addEventListener("click", function () { copyTextWithState(copyLinuxOneLinerBtn, LINUX_ONE_LINER, "COPY LINUX ONE-LINER"); });
+
+      copyFingerprintBtn.addEventListener("click", function () {
+        var fp = currentPgpTier === 1 ? TIER1_FINGERPRINT : TIER2_FINGERPRINT;
+        copyTextWithState(copyFingerprintBtn, fp, "COPY FINGERPRINT");
+      });
+      cyclePgpTierBtn.addEventListener("click", function () {
+        setPgpTier(currentPgpTier === 1 ? 2 : 1, true);
+      });
+      copyTier2Btn.addEventListener("click", function () { copyTextWithState(copyTier2Btn, TIER2_BLOCK, "COPY ALTERNATE (TIER 2)"); });
+      copySsh1Btn.addEventListener("click", function () { copyTextWithState(copySsh1Btn, SSH_KEY_1, "COPY ALT SSH"); });
+      copySsh2Btn.addEventListener("click", function () { copyTextWithState(copySsh2Btn, SSH_KEY_2, "COPY PRIMARY SSH"); });
+
+      setPgpTier(1, false);
+      startExpiryTicker();
+      typeIntoTextarea(sshPrimaryBox, SSH_KEY_2, 1);
+      typeIntoTextarea(sshAlternateBox, SSH_KEY_1, 1);
+      cycleStoryFeeds();
+      winOneLinerText.textContent = WIN_ONE_LINER;
+      linuxOneLinerText.textContent = LINUX_ONE_LINER;
+
+      function closeAllModals() {
+        readmeModal.classList.remove("is-open");
+        oneLinersModal.classList.remove("is-open");
+        importModal.classList.remove("is-open");
+        sshModal.classList.remove("is-open");
+      }
 
       readmeModal.classList.remove("is-open");
+      oneLinersModal.classList.remove("is-open");
       importModal.classList.remove("is-open");
+      sshModal.classList.remove("is-open");
 
       function openReadme() {
-        importModal.classList.remove("is-open");
+        closeAllModals();
         readmeModal.classList.add("is-open");
       }
 
@@ -393,8 +578,17 @@ Ih+CltUcqiBLyo/KPPnI7VxkT3IJu5XKvikJ43EmWOdfIWZErF99rASeO6/D5/+k
         readmeModal.classList.remove("is-open");
       }
 
+      function openOneLiners() {
+        closeAllModals();
+        oneLinersModal.classList.add("is-open");
+      }
+
+      function closeOneLiners() {
+        oneLinersModal.classList.remove("is-open");
+      }
+
       function openImport() {
-        readmeModal.classList.remove("is-open");
+        closeAllModals();
         importModal.classList.add("is-open");
       }
 
@@ -402,20 +596,85 @@ Ih+CltUcqiBLyo/KPPnI7VxkT3IJu5XKvikJ43EmWOdfIWZErF99rASeO6/D5/+k
         importModal.classList.remove("is-open");
       }
 
+      function openSshHelp() {
+        closeAllModals();
+        sshModal.classList.add("is-open");
+      }
+
+      function closeSshHelp() {
+        sshModal.classList.remove("is-open");
+      }
+
       readmeBtn.addEventListener("click", openReadme);
       closeReadmeBtn.addEventListener("click", closeReadme);
+      oneLinersBtn.addEventListener("click", openOneLiners);
+      closeOneLinersBtn.addEventListener("click", closeOneLiners);
       importBtn.addEventListener("click", openImport);
       closeImportBtn.addEventListener("click", closeImport);
+      sshHelpBtn.addEventListener("click", openSshHelp);
+      closeSshBtn.addEventListener("click", closeSshHelp);
       readmeModal.addEventListener("click", function (e) {
         if (e.target === readmeModal) closeReadme();
+      });
+      oneLinersModal.addEventListener("click", function (e) {
+        if (e.target === oneLinersModal) closeOneLiners();
       });
       importModal.addEventListener("click", function (e) {
         if (e.target === importModal) closeImport();
       });
+      sshModal.addEventListener("click", function (e) {
+        if (e.target === sshModal) closeSshHelp();
+      });
       document.addEventListener("keydown", function (e) {
         if (e.key === "Escape" && readmeModal.classList.contains("is-open")) closeReadme();
+        if (e.key === "Escape" && oneLinersModal.classList.contains("is-open")) closeOneLiners();
         if (e.key === "Escape" && importModal.classList.contains("is-open")) closeImport();
+        if (e.key === "Escape" && sshModal.classList.contains("is-open")) closeSshHelp();
       });
+
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+        if (e.target.closest(".pgp-main-block")) {
+          copyTextSilently(keyBox.value);
+          copyBtn.textContent = "COPIED";
+          setTimeout(function () { copyBtn.textContent = "COPY"; }, 900);
+          return;
+        }
+        if (e.target.closest("#pgpMetaLine") || e.target.closest("#copyFingerprintBtn")) {
+          copyTextSilently(currentPgpTier === 1 ? TIER1_FINGERPRINT : TIER2_FINGERPRINT);
+          copyFingerprintBtn.textContent = "COPIED";
+          setTimeout(function () { copyFingerprintBtn.textContent = "COPY FINGERPRINT"; }, 900);
+          return;
+        }
+        if (e.target.closest("#copyTier2Btn")) {
+          copyTextSilently(TIER2_BLOCK);
+          copyTier2Btn.textContent = "COPIED";
+          setTimeout(function () { copyTier2Btn.textContent = "COPY ALTERNATE (TIER 2)"; }, 900);
+          return;
+        }
+        if (e.target.closest("#sshPrimaryBlock") || e.target.closest("#copySsh2Btn")) {
+          copyTextSilently(SSH_KEY_2);
+          copySsh2Btn.textContent = "COPIED";
+          setTimeout(function () { copySsh2Btn.textContent = "COPY PRIMARY SSH"; }, 900);
+          return;
+        }
+        if (e.target.closest("#sshAlternateBlock") || e.target.closest("#copySsh1Btn")) {
+          copyTextSilently(SSH_KEY_1);
+          copySsh1Btn.textContent = "COPIED";
+          setTimeout(function () { copySsh1Btn.textContent = "COPY ALT SSH"; }, 900);
+        }
+      });
+
+      if (crtCursor) {
+        document.addEventListener("mousemove", function (e) {
+          crtCursor.style.left = e.clientX + "px";
+          crtCursor.style.top = e.clientY + "px";
+          crtCursor.style.opacity = "1";
+        });
+        document.addEventListener("mouseleave", function () {
+          crtCursor.style.opacity = "0";
+        });
+      }
 
       if (window.mermaid) {
         mermaid.initialize({
