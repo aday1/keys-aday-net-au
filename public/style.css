@@ -298,8 +298,9 @@ body {
   animation: phosphorPulse 4.6s ease-in-out infinite, greenTubeGlow 3.1s ease-in-out infinite;
   background:
     linear-gradient(180deg, rgba(0, 10, 0, 0.78), rgba(0, 6, 0, 0.9)),
+    url("./assets/pgpBlock-loop-691x408.webp") center/cover no-repeat,
     url("./assets/padlock-bg.jpg") center/cover no-repeat;
-  background-blend-mode: multiply, normal;
+  background-blend-mode: multiply, normal, normal;
 }
 
 .tool-btn {
