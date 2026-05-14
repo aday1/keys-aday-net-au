@@ -194,6 +194,17 @@ ssh -i ~/.ssh/id_ed25519_key1_nopass user@host
 # Key #2 (passphrased)
 ssh -i ~/.ssh/id_ed25519_key2_passphrased user@host
 
+# Generate new SSH keys (Linux/macOS)
+ssh-keygen -t ed25519 -a 100 -f ~/.ssh/id_ed25519_new_pass -C "label - aday@aday.net.au"
+ssh-keygen -t ed25519 -a 100 -N "" -f ~/.ssh/id_ed25519_new_nopass -C "label - aday@aday.net.au"
+
+# Generate new SSH keys (PowerShell)
+ssh-keygen -t ed25519 -a 100 -f "$env:USERPROFILE\.ssh\id_ed25519_new_pass" -C "label - aday@aday.net.au"
+ssh-keygen -t ed25519 -a 100 -N "" -f "$env:USERPROFILE\.ssh\id_ed25519_new_nopass" -C "label - aday@aday.net.au"
+
+# Fingerprint check
+ssh-keygen -lf ~/.ssh/id_ed25519_new_pass.pub
+
 # Optional config entry
 Host my-box
   HostName host-or-ip
@@ -246,8 +257,8 @@ Host my-box
       var PGP_EXPIRES = "2027-06-30";
       var SSH_KEY_1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMj8IwySWo0CJ+5GoRIn2vWI/eTJH2erf4buQGgTPytN Key #1 (non-passphrased) - aday@aday.net.au";
       var SSH_KEY_2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKKNRwo8otC1Gc7hzJb24qh88kapSaJR9G16A458YbnH Key #2 (passphrased) - aday@aday.net.au";
-      var WIN_ONE_LINER = "$uid='Aday <aday@aday.net.au>';$exp='2027-06-30';$out=\"$env:USERPROFILE\\Desktop\\pgp-exports\";New-Item -ItemType Directory -Force -Path $out|Out-Null;gpg --quick-gen-key \"$uid\" rsa4096 cert,sign,encr \"$exp\";$kid=(gpg --list-keys --with-colons \"$uid\"|ForEach-Object{if($_ -match '^pub:'){($_ -split ':')[4]}}|Select-Object -First 1);gpg --armor --output \"$out\\aday-public-$kid.asc\" --export \"$uid\";gpg --armor --output \"$out\\aday-private-$kid.asc\" --export-secret-keys \"$uid\";gpg --output \"$out\\aday-revoke-$kid.rev\" --gen-revoke \"$uid\"";
-      var LINUX_ONE_LINER = "( uid='Aday <aday@aday.net.au>'; exp='2027-06-30'; out=\"$HOME/pgp-exports\"; mkdir -p \"$out\"; gpg --quick-gen-key \"$uid\" rsa4096 cert,sign,encr \"$exp\"; kid=\"$(gpg --list-keys --with-colons \"$uid\" | awk -F: '/^pub:/{print $5; exit}')\"; gpg --armor --output \"$out/aday-public-$kid.asc\" --export \"$uid\"; gpg --armor --output \"$out/aday-private-$kid.asc\" --export-secret-keys \"$uid\"; gpg --output \"$out/aday-revoke-$kid.rev\" --gen-revoke \"$uid\" )";
+      var WIN_ONE_LINER = "$uid='Aday <aday@aday.net.au>';$exp='2027-06-30';$out=\"$env:USERPROFILE\\Desktop\\pgp-exports\";New-Item -ItemType Directory -Force -Path $out|Out-Null;gpg --quick-gen-key \"$uid\" rsa4096 cert,sign,encr \"$exp\";$kid=(gpg --list-keys --with-colons \"$uid\"|ForEach-Object{if($_ -match '^pub:'){($_ -split ':')[4]}}|Select-Object -First 1);gpg --armor --output \"$out\\aday-public-$kid.asc\" --export \"$uid\";gpg --armor --output \"$out\\aday-private-$kid.asc\" --export-secret-keys \"$uid\";gpg --output \"$out\\aday-revoke-$kid.asc\" --gen-revoke \"$uid\"";
+      var LINUX_ONE_LINER = "( uid='Aday <aday@aday.net.au>'; exp='2027-06-30'; out=\"$HOME/pgp-exports\"; mkdir -p \"$out\"; gpg --quick-gen-key \"$uid\" rsa4096 cert,sign,encr \"$exp\"; kid=\"$(gpg --list-keys --with-colons \"$uid\" | awk -F: '/^pub:/{print $5; exit}')\"; gpg --armor --output \"$out/aday-public-$kid.asc\" --export \"$uid\"; gpg --armor --output \"$out/aday-private-$kid.asc\" --export-secret-keys \"$uid\"; gpg --output \"$out/aday-revoke-$kid.asc\" --gen-revoke \"$uid\" )";
       var TIER1_BLOCK = `-----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mQINBGoBohcBEADA1d8iDpfa7PT4u+vmoATP25Imxu8BC4uMc3IhVesoUPHoQgKV

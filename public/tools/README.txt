@@ -16,6 +16,13 @@ Expected outputs:
 - encrypted private key export (.asc) for backup/transfer
 - revocation certificate (.asc) stored offline
 
+SSH generation quick reference:
+- Passphrased:
+  ssh-keygen -t ed25519 -a 100 -f ~/.ssh/id_ed25519_new_pass -C "label - aday@aday.net.au"
+- Non-passphrased:
+  ssh-keygen -t ed25519 -a 100 -N "" -f ~/.ssh/id_ed25519_new_nopass -C "label - aday@aday.net.au"
+- Publish only .pub file content.
+
 Important:
 - Keep private key export encrypted and offline.
 - Keep revocation certificate offline.
