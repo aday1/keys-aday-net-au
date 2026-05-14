@@ -552,19 +552,18 @@ AFTER COMPROMISE.`
         keyBox.classList.remove("is-active-gif");
       }
 
+      setPgpGifPlaybackState(false);
       keyBox.addEventListener("focus", function () {
-        setPgpGifPlaybackState(true);
-      });
-      keyBox.addEventListener("click", function () {
         setPgpGifPlaybackState(true);
       });
       keyBox.addEventListener("blur", function () {
         setPgpGifPlaybackState(false);
       });
       document.addEventListener("pointerdown", function (event) {
-        if (!event.target.closest("#pgpBlock")) {
-          setPgpGifPlaybackState(false);
-        }
+        setPgpGifPlaybackState(!!event.target.closest("#pgpBlock"));
+      }, true);
+      window.addEventListener("blur", function () {
+        setPgpGifPlaybackState(false);
       });
 
       copyBtn.addEventListener("click", function () {
