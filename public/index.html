@@ -543,6 +543,30 @@ AFTER COMPROMISE.`
         });
       }
 
+      function setPgpGifPlaybackState(active) {
+        if (!keyBox) return;
+        if (active) {
+          keyBox.classList.add("is-active-gif");
+          return;
+        }
+        keyBox.classList.remove("is-active-gif");
+      }
+
+      keyBox.addEventListener("focus", function () {
+        setPgpGifPlaybackState(true);
+      });
+      keyBox.addEventListener("click", function () {
+        setPgpGifPlaybackState(true);
+      });
+      keyBox.addEventListener("blur", function () {
+        setPgpGifPlaybackState(false);
+      });
+      document.addEventListener("pointerdown", function (event) {
+        if (!event.target.closest("#pgpBlock")) {
+          setPgpGifPlaybackState(false);
+        }
+      });
+
       copyBtn.addEventListener("click", function () {
         copyTextWithState(copyBtn, keyBox.value, "COPY");
       });

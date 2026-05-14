@@ -303,6 +303,13 @@ body {
   background-blend-mode: multiply, normal, normal;
 }
 
+.pgp-main-block textarea.is-active-gif {
+  background:
+    linear-gradient(180deg, rgba(0, 10, 0, 0.78), rgba(0, 6, 0, 0.9)),
+    url("./assets/pgpBlock-loop-691x408.gif") center/cover no-repeat,
+    url("./assets/padlock-bg.jpg") center/cover no-repeat;
+}
+
 .tool-btn {
   border: 1px solid rgba(215, 0, 30, 0.8);
   background: rgba(0, 0, 0, 0.8);
