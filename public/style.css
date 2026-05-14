@@ -38,11 +38,11 @@ html {
   margin: 0;
   padding: 0;
   height: 100%;
-  cursor: none;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='34' viewBox='0 0 24 34'%3E%3Cpath d='M1 1V31L8 24L12 33L16 31L12 22H23V1Z' fill='%23ff2b3d' stroke='%23220008' stroke-width='1.2'/%3E%3Cpath d='M3 4V25L8 21L12 29L13 28L9 20H19V4Z' fill='%23ffd4d8' opacity='0.74'/%3E%3C/svg%3E") 1 1, auto;
 }
 
 body * {
-  cursor: none !important;
+  cursor: inherit !important;
 }
 
 body {
@@ -302,7 +302,7 @@ body {
   animation: phosphorPulse 4.6s ease-in-out infinite, greenTubeGlow 3.1s ease-in-out infinite;
   background:
     linear-gradient(180deg, rgba(0, 10, 0, 0.78), rgba(0, 6, 0, 0.9)),
-    url("./assets/padlock-bg.jpg") 50% 50% / cover no-repeat;
+    url("./assets/pgpBlock-loop-691x408-still.webp") 50% 50% / cover no-repeat;
   background-blend-mode: multiply, normal;
   filter: blur(0.35px) saturate(0.96);
 }
@@ -314,9 +314,8 @@ body {
 .pgp-main-block textarea.is-active-gif {
   background:
     linear-gradient(180deg, rgba(0, 10, 0, 0.78), rgba(0, 6, 0, 0.9)),
-    url("./assets/pgpBlock-loop-691x408.webp") 50% 50% / cover no-repeat,
-    url("./assets/padlock-bg.jpg") 50% 50% / cover no-repeat;
-  background-blend-mode: multiply, normal, normal;
+    url("./assets/pgpBlock-loop-691x408.webp") 50% 50% / cover no-repeat;
+  background-blend-mode: multiply, normal;
   filter: blur(0.35px) saturate(0.96);
 }
 

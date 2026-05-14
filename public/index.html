@@ -729,14 +729,7 @@ AFTER COMPROMISE.`
       });
 
       if (crtCursor) {
-        document.addEventListener("mousemove", function (e) {
-          crtCursor.style.left = e.clientX + "px";
-          crtCursor.style.top = e.clientY + "px";
-          crtCursor.style.opacity = "1";
-        });
-        document.addEventListener("mouseleave", function () {
-          crtCursor.style.opacity = "0";
-        });
+        crtCursor.style.display = "none";
       }
 
       if (window.mermaid) {
