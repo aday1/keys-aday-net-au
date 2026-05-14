@@ -1413,3 +1413,105 @@ body.off::after {
 *::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(#ff5060, #d7001e);
 }
+
+/* Slow rounded CRT power-on */
+body.boot-seq .container {
+  opacity: 0;
+  visibility: hidden;
+}
+
+body:not(.boot-seq) .container {
+  opacity: 1;
+  visibility: visible;
+  animation: keysShellReveal 960ms cubic-bezier(0.16, 0.82, 0.16, 1) both;
+}
+
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  overflow: hidden;
+  pointer-events: auto;
+  background: radial-gradient(circle at 50% 48%, rgba(14, 0, 6, 0.98), rgba(0, 0, 0, 1));
+  transition: opacity 760ms ease;
+}
+
+.page-transition::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 105, 132, 0.18) 0 1px, transparent 1px 4px),
+    repeating-radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 3px);
+  opacity: 0.56;
+  animation: keysCutOnNoise 140ms steps(2, end) infinite;
+}
+
+.page-transition::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(86vw, 1020px);
+  aspect-ratio: 4 / 3;
+  transform: translate(-50%, -50%);
+  border-radius: 50% 50% 48% 48% / 58% 58% 42% 42%;
+  border: 1px solid rgba(255, 164, 188, 0.45);
+  background:
+    radial-gradient(circle at 50% 52%, rgba(255, 120, 144, 0.36), rgba(255, 78, 118, 0.14) 48%, rgba(0, 0, 0, 0) 76%),
+    radial-gradient(circle at 50% 46%, rgba(255, 216, 224, 0.2), rgba(0, 0, 0, 0) 63%);
+  box-shadow: inset 0 0 90px rgba(255, 144, 170, 0.22), 0 0 130px rgba(255, 86, 126, 0.18);
+  animation: keysCutOnBloom 3.2s cubic-bezier(0.14, 0.74, 0.18, 1) forwards;
+}
+
+.page-transition-inner {
+  position: absolute;
+  inset: 0;
+}
+
+.page-transition-inner::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(72vw, 840px);
+  height: 4px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 220, 228, 0), rgba(255, 220, 228, 1), rgba(255, 220, 228, 0));
+  box-shadow: 0 0 28px rgba(255, 220, 228, 0.92), 0 0 64px rgba(255, 118, 152, 0.78);
+  animation: keysCutOnLine 2.3s cubic-bezier(0.2, 0.82, 0.14, 1) forwards;
+}
+
+.page-transition.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes keysCutOnLine {
+  0% { opacity: 0.24; transform: translate(-50%, -50%) scaleX(0.03) scaleY(0.05); }
+  34% { opacity: 1; transform: translate(-50%, -50%) scaleX(0.94) scaleY(0.08); }
+  62% { opacity: 0.9; transform: translate(-50%, -50%) scaleX(1) scaleY(0.48); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scaleX(1.05) scaleY(1); }
+}
+
+@keyframes keysCutOnBloom {
+  0% { opacity: 0.2; filter: blur(0.5px) brightness(1.8); transform: translate(-50%, -50%) scale(0.72, 0.04); }
+  34% { opacity: 0.98; filter: blur(0) brightness(1.35); transform: translate(-50%, -50%) scale(1, 0.18); }
+  64% { opacity: 0.88; filter: blur(0) brightness(1.12); transform: translate(-50%, -50%) scale(1.02, 0.88); }
+  100% { opacity: 0.17; filter: blur(0.1px) brightness(1); transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes keysCutOnNoise {
+  0% { transform: translate(0, 0); opacity: 0.28; }
+  50% { transform: translate(-1.8%, 1.1%); opacity: 0.58; }
+  100% { transform: translate(1.2%, -0.9%); opacity: 0.34; }
+}
+
+@keyframes keysShellReveal {
+  0% { opacity: 0; filter: brightness(2.8) contrast(1.35); transform: scale(1, 0.02); }
+  42% { opacity: 0.9; filter: brightness(1.7) contrast(1.2); transform: scale(1, 0.22); }
+  75% { opacity: 1; filter: brightness(1.2) contrast(1.08); transform: scale(1.01, 0.95); }
+  100% { opacity: 1; filter: brightness(1) contrast(1); transform: scale(1); }
+}

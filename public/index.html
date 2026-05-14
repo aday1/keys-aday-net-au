@@ -7,7 +7,10 @@
   <title>public pgp key for aday @ aday .net.au</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="boot-seq">
+  <div id="pageTransition" class="page-transition" aria-hidden="true">
+    <div class="page-transition-inner"></div>
+  </div>
   <div class="container on">
     <div class="side-guide side-guide-left" aria-hidden="true">
       <pre id="aliceStory" class="type-target"></pre>
@@ -218,6 +221,8 @@ Host my-box
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     (function () {
+      var body = document.body;
+      var pageTransition = document.getElementById("pageTransition");
       var copyBtn = document.getElementById("copyKeyBtn");
       var copyFingerprintBtn = document.getElementById("copyFingerprintBtn");
       var cyclePgpTierBtn = document.getElementById("cyclePgpTierBtn");
@@ -249,6 +254,42 @@ Host my-box
       var sshHelpBtn = document.getElementById("sshHelpBtn");
       var sshModal = document.getElementById("sshModal");
       var closeSshBtn = document.getElementById("closeSshBtn");
+      var CUTON_BOOT_MS = 2550;
+      var CUTON_HIDE_MS = 3150;
+      var cutOnScheduled = false;
+
+      var finishBoot = function () {
+        body.classList.remove("boot-seq");
+      };
+      var hideTransition = function () {
+        if (pageTransition) pageTransition.classList.add("hidden");
+      };
+      var runCutOnSequence = function (forceImmediate) {
+        if (forceImmediate) {
+          finishBoot();
+          hideTransition();
+          cutOnScheduled = true;
+          return;
+        }
+        if (cutOnScheduled) return;
+        cutOnScheduled = true;
+        setTimeout(finishBoot, CUTON_BOOT_MS);
+        setTimeout(hideTransition, CUTON_HIDE_MS);
+      };
+
+      if (document.readyState === "complete") {
+        runCutOnSequence();
+      } else {
+        document.addEventListener("DOMContentLoaded", function () {
+          runCutOnSequence();
+        });
+        window.addEventListener("load", function () {
+          runCutOnSequence();
+        });
+      }
+      window.addEventListener("pageshow", function (event) {
+        if (event.persisted) runCutOnSequence(true);
+      });
 
       var TIER1_FINGERPRINT = "1A73 F039 1A08 C124 4F4E 3A05 5775 5BF3 3748 3B1D";
       var TIER2_FINGERPRINT = "CBD4 57CB E853 472E 69D2 E556 5998 5C89 6889 631B";
