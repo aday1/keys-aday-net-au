@@ -545,11 +545,29 @@ AFTER COMPROMISE.`
 
       function setPgpGifPlaybackState(active) {
         if (!keyBox) return;
+        var block = keyBox.parentElement;
+        var wasActive = keyBox.classList.contains("is-active-gif");
+        if (wasActive === active) return;
+        if (block) {
+          block.classList.remove("is-switching");
+          void block.offsetWidth;
+          block.classList.add("is-switching");
+          setTimeout(function () {
+            block.classList.remove("is-switching");
+          }, 260);
+        }
         if (active) {
           keyBox.classList.add("is-active-gif");
           return;
         }
         keyBox.classList.remove("is-active-gif");
+      }
+
+      function isPgpBlockTarget(target) {
+        if (!target) return false;
+        if (target === keyBox) return true;
+        if (target instanceof Element) return !!target.closest("#pgpBlock");
+        return false;
       }
 
       setPgpGifPlaybackState(false);
@@ -560,7 +578,18 @@ AFTER COMPROMISE.`
         setPgpGifPlaybackState(false);
       });
       document.addEventListener("pointerdown", function (event) {
-        setPgpGifPlaybackState(!!event.target.closest("#pgpBlock"));
+        setPgpGifPlaybackState(isPgpBlockTarget(event.target));
+      }, true);
+      document.addEventListener("mousedown", function (event) {
+        setPgpGifPlaybackState(isPgpBlockTarget(event.target));
+      }, true);
+      document.addEventListener("focusin", function (event) {
+        setPgpGifPlaybackState(isPgpBlockTarget(event.target));
+      }, true);
+      document.addEventListener("focusout", function () {
+        setTimeout(function () {
+          setPgpGifPlaybackState(document.activeElement === keyBox);
+        }, 0);
       }, true);
       window.addEventListener("blur", function () {
         setPgpGifPlaybackState(false);
