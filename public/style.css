@@ -38,7 +38,7 @@ html {
   margin: 0;
   padding: 0;
   height: 100%;
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='34' viewBox='0 0 24 34'%3E%3Cpath d='M1 1V31L8 24L12 33L16 31L12 22H23V1Z' fill='%23ff2b3d' stroke='%23220008' stroke-width='1.2'/%3E%3Cpath d='M3 4V25L8 21L12 29L13 28L9 20H19V4Z' fill='%23ffd4d8' opacity='0.74'/%3E%3C/svg%3E") 1 1, auto;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='30' viewBox='0 0 22 30'%3E%3Cpath d='M2 2V27L8 21L11 29L14 27L11 19H20V2Z' fill='%23ffffff' stroke='%23000000' stroke-width='1.2'/%3E%3Cpath d='M4 4V22L8 18L10.4 25L11.7 24.2L9.6 17H17V4Z' fill='%23cfd6db'/%3E%3Cpath d='M6 24L8 22L11 29L14 27L11 19H13' fill='none' stroke='%23000000' stroke-width='1' opacity='0.58'/%3E%3C/svg%3E") 2 2, auto;
 }
 
 body * {
