@@ -25,8 +25,7 @@ jobs:
           node-version: 20
 
       - name: Deploy public denied site to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          wranglerVersion: "4"
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: pages deploy sites/pseudocorp-denied --project-name=pseudocorp-denied --branch=main --commit-dirty=true
+        run: npx wrangler@4 pages deploy sites/pseudocorp-denied --project-name=pseudocorp-denied --branch=main --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: "98b823762cb6be14fb4fb00c935fadf1"
