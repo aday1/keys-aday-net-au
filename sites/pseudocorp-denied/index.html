@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PSEUDOCORP — not connected</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      min-height: 100%;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: #1a2340;
+      background: linear-gradient(180deg, #7ec8f0 0%, #b8e8ff 40%, #d4f5c8 100%);
+    }
+    .wrap {
+      max-width: 52rem;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3rem;
+    }
+    .logo {
+      width: min(100%, 480px);
+      height: auto;
+      margin: 0 auto 1.25rem;
+      display: block;
+      filter: drop-shadow(0 8px 24px rgba(100, 140, 200, 0.35));
+    }
+    h1 { font-size: 1.35rem; margin-bottom: 0.6rem; text-align: center; }
+    .lead { text-align: center; line-height: 1.55; margin-bottom: 1rem; }
+    .panel {
+      margin-top: 1rem;
+      padding: 1.15rem 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 8px 24px rgba(100, 140, 200, 0.18);
+    }
+    .panel h2 {
+      font-size: 0.92rem;
+      margin-bottom: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #5a4a8a;
+    }
+    .panel p, .panel li { line-height: 1.5; margin-bottom: 0.5rem; font-size: 0.98rem; }
+    .panel ul { margin-left: 1.1rem; }
+    .warn {
+      background: rgba(255, 200, 120, 0.35);
+      border: 1px solid rgba(180, 120, 40, 0.35);
+      border-radius: 10px;
+      padding: 0.75rem 0.85rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 0.35rem; }
+    th, td { text-align: left; padding: 0.35rem 0.45rem; border-bottom: 1px solid rgba(90, 74, 138, 0.12); vertical-align: top; }
+    th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: #5a4a8a; }
+    code {
+      font-size: 0.9em;
+      background: rgba(155, 123, 255, 0.12);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.15em 0.45em;
+      border-radius: 6px;
+    }
+    .badge.ok { background: #c8f0c8; color: #1a5030; }
+    .badge.off { background: #f0d0d0; color: #502020; }
+    .small { font-size: 0.85rem; opacity: 0.9; }
+    .meta { font-size: 0.85rem; color: #4a4060; margin-bottom: 0.5rem; }
+    .note { margin-top: 1rem; font-size: 0.88rem; opacity: 0.88; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="logo" src="logo.png" width="960" height="540" alt="PESUDOCORP logo">
+    <h1>Unauthorised — you are not on the PSEUDOCORP network</h1>
+    <p class="lead">This is not a public internet PBX. You are viewing the <strong>public directory</strong> only.</p>
+
+    <div class="panel">
+      <div class="warn">
+        <strong>Intranet access required</strong> for the full site, SIP registration, Hermes, Composer, and Grok voice.
+        Connect via <strong>Tailscale</strong> or a trusted LAN (<code>10.13.37.0/24</code>, <code>10.12.12.0/24</code>), then open
+        <code>https://pseudocorp.aday.net.au/</code> or <code>https://pseudocorp.yggdrasil.aday.net.au/</code> (same site).
+      </div>
+      <p class="small">SIP registrar (when on-net): <code>pseudocorp.yggdrasil.aday.net.au</code> (also <code>pseudocorp.aday.net.au</code>), or direct LAN <code>10.13.37.37</code> / Tailscale <code>100.97.254.30</code>, UDP 5060. Never public WAN IP.</p>
+    </div>
+
+    <div class="panel">
+      <h2>Human phones (live status)</h2>
+      <p class="meta" id="status-meta">Loading…</p>
+      <div id="humans-status"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Documentation (public)</h2>
+      <ul>
+        <li><a href="whitepaper.html">PSEUDOCORP whitepaper</a> — architecture, dialplan, agent mesh (read-only)</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>VoIP extensions (directory)</h2>
+      <p class="small">Dial from any phone registered on the private PBX. AI agents use separate extensions per personality.</p>
+      <div id="extensions-list"></div>
+    </div>
+
+    <p class="note">Status refreshes about every minute from CELES when published. Registration shown for aday (100, 110) and BMO (101).</p>
+  </div>
+  <script src="phones-status.js"></script>
+  <script>
+    PseudocorpPhonesStatus.load(
+      "status.json",
+      document.getElementById("humans-status"),
+      document.getElementById("extensions-list"),
+      document.getElementById("status-meta")
+    );
+  </script>
+</body>
+</html>

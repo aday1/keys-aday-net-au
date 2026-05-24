@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PSEUDOCORP // synergised mesh whitepaper</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <div class="petals" aria-hidden="true"></div>
+  <div class="circuits" aria-hidden="true"></div>
+
+  <header class="hero hero-compact">
+    <div class="theme-bar">
+      <button type="button" id="theme-kawaii" class="theme-btn active">Sakura deck</button>
+      <button type="button" id="theme-cyber" class="theme-btn">Circuit deck</button>
+    </div>
+    <p class="tagline corp-glitch">PSEUDOCORP ENTERPRISE WHITEPAPER v0.9.1-beta</p>
+    <p class="sub">A wholly serious document about a fake company running a real homelab</p>
+    <nav class="quicklinks">
+      <a href="index.html">gate page</a>
+      <a href="status.json">live phone status (JSON)</a>
+    </nav>
+  </header>
+
+  <main class="whitepaper">
+    <section class="panel corp-panel">
+      <p class="corp-badge">PUBLIC DIRECTORY COPY // SIP &amp; PBX REQUIRE LAN OR TAILSCALE</p>
+      <h1>Hyper-Strategic Unified Communications &amp; Agentic Mesh Platform</h1>
+      <p class="corp-lede">
+        PSEUDOCORP delivers <em>synergistic voice-to-code orchestration</em> across a
+        invite-only yggdrasil LAN overlay. This whitepaper aligns stakeholders on our
+        <strong>paradigm-shifting</strong> SIP fabric, Docker-native agent runway, and
+        executive secretary failover — with actual ports, IPs, and dialplan trees because
+        buzzwords alone do not register Yealink phones.
+      </p>
+      <blockquote class="corp-quote">
+        "We don't just answer calls. We <strong>productise</strong> silence into Cursor jobs."
+        — Hermes, Master Assistant, ext 111
+      </blockquote>
+    </section>
+
+    <section class="panel">
+      <h2>1. Executive summary (for the board slide deck)</h2>
+      <ul class="corp-buzz">
+        <li><strong>Platform:</strong> Asterisk 22 on CELES (Raspberry Pi 5), host network Docker, Pi-hole split DNS</li>
+        <li><strong>Reach:</strong> yggdrasil LAN <code>10.13.37.0/24</code> + Tailscale overlay — never public WAN SIP</li>
+        <li><strong>Humans:</strong> ext 100/110 (aday), 101/102 (BMO) with desk/mobile failover + secretary IVR</li>
+        <li><strong>Agents:</strong> Hermes 111, Composer 117, Grok 112–115, VECTOR scribe @ 10.13.37.60</li>
+        <li><strong>Web:</strong> pseudocorp.yggdrasil.aday.net.au — nginx on CELES, workspace sandboxes, agent feeds</li>
+        <li><strong>North-star KPI:</strong> voice note in, homelab file out, executive feed updated, synergy achieved</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2>2. Network topology (actual LAN + overlay)</h2>
+      <p class="note">Real IPs from yggdrasil inventory. PSEUDOCORP traffic stays off the public internet.</p>
+      <pre class="mermaid">
+flowchart TB
+  subgraph WAN["Public internet (SIP blocked)"]
+    CLOUD[Cloudflare / Linode VPSes]
+  end
+  subgraph TS["Tailscale overlay"]
+    CELES_TS["CELES 100.97.254.30"]
+    BMO_TS["BMO Smootin.smoot.fun subnet router"]
+  end
+  subgraph LAN["yggdrasil LAN 10.13.37.0/24"]
+    GW["OPNsense 10.13.37.1"]
+    DNS["Pi-hole 10.13.37.10"]
+    CELES["CELES Pi5 10.13.37.37\nPBX + nginx + agents"]
+    PHONE["Yealink ext100 10.13.37.15"]
+    JF["ZealTower Jellyfin 10.13.37.5:8096"]
+    NAS["LAIN NAS 10.13.37.11"]
+    VEC["VECTOR scribe 10.13.37.60"]
+  end
+  GW --> DNS
+  DNS --> CELES
+  DNS --> JF
+  DNS --> NAS
+  PHONE -->|SIP UDP 5060| CELES
+  CELES -->|HTTP scribe| VEC
+  BMO_TS -->|SIP UDP 5060| CELES_TS
+  CELES_TS --- CELES
+  CLOUD -.->|no SIP| CELES
+      </pre>
+    </section>
+
+    <section class="panel">
+      <h2>3. VoIP human extension failover (dialplan truth)</h2>
+      <p>25-second ring timeout per hop, then secretary assistant with corporate memo pipeline.</p>
+      <pre class="mermaid">
+flowchart LR
+  subgraph ADAY["aday human lines"]
+    D100["Dial 100 office"]
+    D110["Dial 110 mobile"]
+    D100 --> R100["Ring PJSIP/100"]
+    R100 -->|no answer| R110a["Ring PJSIP/110"]
+    R110a -->|no answer| SEC_A["aday-secretary IVR"]
+    D110 --> R110["Ring PJSIP/110"]
+    R110 -->|no answer| R100b["Ring PJSIP/100"]
+    R100b -->|no answer| SEC_A
+  end
+  subgraph BMO["BMO human lines"]
+    D101["Dial 101 desk"]
+    D102["Dial 102 mobile"]
+    D101 --> R101["Ring PJSIP/101"]
+    R101 -->|no answer| R102a["Ring PJSIP/102"]
+    R102a -->|no answer| SEC_B["bmo-secretary IVR"]
+    D102 --> R102["Ring PJSIP/102"]
+    R102 -->|no answer| R101b["Ring PJSIP/101"]
+    R101b -->|no answer| SEC_B
+  end
+      </pre>
+      <table class="addrbook">
+        <thead><tr><th>Ext</th><th>Role</th><th>SIP registrar</th><th>RTP</th></tr></thead>
+        <tbody>
+          <tr><td>100</td><td>aday office Yealink</td><td>pseudocorp.yggdrasil.aday.net.au (or pseudocorp.aday.net.au, 10.13.37.37)</td><td>UDP 10000–10100</td></tr>
+          <tr><td>110</td><td>aday mobile</td><td>Tailscale 100.97.254.30 when roaming</td><td>same</td></tr>
+          <tr><td>101/102</td><td>BMO desk/mobile</td><td>Tailscale only</td><td>same</td></tr>
+          <tr><td>111</td><td>Hermes IVR</td><td>dialplan virtual</td><td>—</td></tr>
+          <tr><td>117</td><td>Composer voice agent</td><td>dialplan virtual</td><td>—</td></tr>
+          <tr><td>112–115</td><td>Grok live bridges</td><td>SIP localhost 5160–5164</td><td>40115+</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>4. Agent &amp; scribe pipeline (voice → action)</h2>
+      <pre class="mermaid">
+sequenceDiagram
+  participant H as Human phone
+  participant A as Asterisk CELES
+  participant V as VECTOR 10.13.37.60
+  participant P as pbx-api :9101
+  participant C as Cursor / Grok
+  participant W as Workspace www + agent feeds
+  H->>A: SIP call ext 111 or 117
+  A->>H: IVR menu / beep
+  H->>A: WAV to /opt/voip/recordings
+  A->>P: hermes-queue / composer-reply
+  P->>V: POST /hermes/scribe
+  V-->>P: transcript + summary
+  P->>C: async agent job
+  C->>W: files, inbox JSON, bot-board
+      </pre>
+      <p class="small">Hermes menu keys: 1 note · 2 spoken Q&amp;A · 6 cross-executive memo · 0 memory reset (per-user isolation).</p>
+    </section>
+
+    <section class="panel">
+      <h2>5. CELES Docker estate (live containers)</h2>
+      <pre class="mermaid">
+flowchart TB
+  subgraph CELES_HOST["CELES 10.13.37.37 host"]
+    NG["celes-nginx-1\npseudocorp + celes vhosts"]
+    AST["celes-asterisk-1\nandrius/asterisk:22 host net"]
+    HER["celes-hermes-1\nhermes-agent"]
+    OW["celes-openwebui-1"]
+    PT["celes-portainer-1"]
+    GU["celes-guacamole stack"]
+    PG["celes-postgres-1"]
+  end
+  NG -->|static /var/www/pseudocorp| WEB[pseudocorp site]
+  NG -->|proxy /pbx/api| API[pbx-api systemd :9101]
+  AST -->|System curl| API
+  API --> HER
+      </pre>
+      <p>Asterisk uses <code>network_mode: host</code> — SIP UDP 5060 bound on CELES directly. Grok bridges run as systemd units <code>celes-grok-voice@{112-115}</code>, not in the Asterisk container.</p>
+    </section>
+
+    <section class="panel">
+      <h2>6. Website &amp; workspace sandboxes</h2>
+      <pre class="mermaid">
+flowchart LR
+  subgraph WEBROOT["/var/www/pseudocorp"]
+    IDX[index.html]
+    WP[whitepaper.html]
+    ST[call-stats.html]
+    SB["/sandbox/aday|bmo|shared/"]
+    AG[agents feeds]
+    MAP[site-map.json]
+  end
+  subgraph WS["/opt/voip/workspaces"]
+    O100[office-100/www]
+    B101[bmo-101/www]
+    SH[_shared/www]
+  end
+  NGINX[nginx alias + autoindex] --> SB
+  WS --> SB
+  WS --> AG
+      </pre>
+      <p>Executives vibe-code HTML/JS in workspace <code>www/</code> folders. Secretary memos land in <code>www/inbox/*.json</code> and regenerate agent feeds via <code>pbx-regenerate-web.sh</code>.</p>
+    </section>
+
+    <section class="panel">
+      <h2>7. Technical appendix — specifications</h2>
+      <table class="addrbook">
+        <thead><tr><th>Layer</th><th>Spec</th></tr></thead>
+        <tbody>
+          <tr><td>SIP transport</td><td>UDP 5060, PJSIP, G.711 ulaw/alaw, direct_media=no</td></tr>
+          <tr><td>RTP</td><td>UDP 10000–10100 (phones), 40115+ (Grok bridges)</td></tr>
+          <tr><td>PBX API</td><td>Python http.server :9101 — hermes-reply, composer-reply, memory-reset</td></tr>
+          <tr><td>Scribe GPU</td><td>VECTOR @ 10.13.37.60:8090/hermes/scribe</td></tr>
+          <tr><td>Recordings</td><td>/opt/voip/recordings → nginx /pbx/recordings/ (auth)</td></tr>
+          <tr><td>Workspaces</td><td>/opt/voip/workspaces/{office-100,mobile-110,bmo-101,hermes-111,composer-117,grok-NNN,_shared}</td></tr>
+          <tr><td>TLS site</td><td>pseudocorp.aday.net.au / pseudocorp.yggdrasil.aday.net.au — Let's Encrypt on CELES (intranet)</td></tr>
+          <tr><td>Memory isolation</td><td>pbx-reset-memory.sh — callers cannot reset other exec workspaces</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel corp-panel">
+      <h2>8. Forward-looking synergies (placeholder OKRs)</h2>
+      <ul>
+        <li>Pi-hole A records for jellyfin/navidrome/nas.pseudocorp.aday.net.au</li>
+        <li>Populate pbx-call-log.jsonl for CDR-grade executive dashboards</li>
+        <li>BMO ext 101 registration via Smootin subnet router (currently offline in telemetry)</li>
+        <li>TLS reverse proxy for Jellyfin — because executives deserve HTTPS vibes</li>
+      </ul>
+      <p class="corp-badge">END OF WHITEPAPER — go dial 111 press 9 for help</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>PSEUDOCORP — public directory documentation</p>
+    <p class="small"><a href="index.html">Back to gate page</a> — full site on LAN / Tailscale only</p>
+  </footer>
+  <script src="app.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: document.body.classList.contains("theme-cyber") ? "dark" : "default" });
+  </script>
+</body>
+</html>

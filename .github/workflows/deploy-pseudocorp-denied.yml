@@ -1,0 +1,30 @@
+name: Deploy pseudocorp-denied Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - sites/pseudocorp-denied/**
+      - .github/workflows/deploy-pseudocorp-denied.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Deploy public denied site to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          wranglerVersion: "4"
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: pages deploy sites/pseudocorp-denied --project-name=pseudocorp-denied --branch=main --commit-dirty=true

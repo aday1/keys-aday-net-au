@@ -1,0 +1,124 @@
+{
+  "updated": "2026-05-24T00:29:01Z",
+  "asterisk_up": true,
+  "notice": "SIP/PBX is intranet-only (LAN, 10.12.12.0/24, or Tailscale). This page is directory info only.",
+  "sip_registrars": {
+    "advertised_hostname": "pseudocorp.yggdrasil.aday.net.au",
+    "advertised_hostname_alt": "pseudocorp.aday.net.au",
+    "port": 5060,
+    "transport": "UDP",
+    "lan_ip": "10.13.37.37",
+    "tailscale_ip": "100.97.254.30",
+    "never_use": "public WAN IP"
+  },
+  "intranet_url": "https://pseudocorp.yggdrasil.aday.net.au/",
+  "trusted_networks": [
+    "10.13.37.0/24 (yggdrasil LAN)",
+    "10.12.12.0/24 (extended LAN)",
+    "100.64.0.0/10 (Tailscale)"
+  ],
+  "extensions": [
+    {
+      "ext": "100",
+      "name": "aday",
+      "kind": "phone",
+      "device": "Yealink @ 10.13.37.15",
+      "role": "human"
+    },
+    {
+      "ext": "101",
+      "name": "BMO",
+      "kind": "phone",
+      "device": "Cisco 7940 friend SIP",
+      "role": ""
+    },
+    {
+      "ext": "110",
+      "name": "aday-mobile",
+      "kind": "phone",
+      "device": "Android SIP",
+      "role": "human"
+    },
+    {
+      "ext": "111",
+      "name": "Hermes",
+      "kind": "service",
+      "device": "IVR async agent",
+      "role": ""
+    },
+    {
+      "ext": "112",
+      "name": "Grok Unhinged",
+      "kind": "service",
+      "device": "Grok voice bridge",
+      "role": ""
+    },
+    {
+      "ext": "113",
+      "name": "Grok Therapist",
+      "kind": "service",
+      "device": "Grok voice bridge",
+      "role": ""
+    },
+    {
+      "ext": "114",
+      "name": "Grok Conspiracy",
+      "kind": "service",
+      "device": "Grok voice bridge",
+      "role": ""
+    },
+    {
+      "ext": "115",
+      "name": "Grok",
+      "kind": "service",
+      "device": "Grok voice bridge",
+      "role": ""
+    },
+    {
+      "ext": "117",
+      "name": "Composer",
+      "kind": "service",
+      "device": "Cursor Composer IVR",
+      "role": ""
+    },
+    {
+      "ext": "200",
+      "name": "Test",
+      "kind": "service",
+      "device": "playback demo",
+      "role": ""
+    }
+  ],
+  "humans": [
+    {
+      "ext": "100",
+      "name": "aday",
+      "registered": false,
+      "connection": "DISCONNECTED",
+      "last_seen": "2026-05-23T12:52:02Z",
+      "last_call": "",
+      "last_call_summary": "",
+      "detail": "contact NonQual"
+    },
+    {
+      "ext": "101",
+      "name": "BMO",
+      "registered": false,
+      "connection": "DISCONNECTED",
+      "last_seen": "",
+      "last_call": "",
+      "last_call_summary": "",
+      "detail": "endpoint unavailable; contact none"
+    },
+    {
+      "ext": "110",
+      "name": "aday-mobile",
+      "registered": false,
+      "connection": "CONNECTED",
+      "last_seen": "2026-05-24T00:29:01Z",
+      "last_call": "",
+      "last_call_summary": "",
+      "detail": "endpoint idle / online"
+    }
+  ]
+}
