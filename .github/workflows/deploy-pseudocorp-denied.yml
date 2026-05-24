@@ -14,6 +14,8 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_ACCOUNT_ID: "98b823762cb6be14fb4fb00c935fadf1"
     steps:
       - uses: actions/checkout@v4
 
