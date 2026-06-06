@@ -238,7 +238,6 @@ Host my-box
       </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     (function () {
       var body = document.body;
@@ -274,8 +273,8 @@ Host my-box
       var sshHelpBtn = document.getElementById("sshHelpBtn");
       var sshModal = document.getElementById("sshModal");
       var closeSshBtn = document.getElementById("closeSshBtn");
-      var CUTON_BOOT_MS = 100;
-      var CUTON_HIDE_MS = 920;
+      var CUTON_BOOT_MS = 40;
+      var CUTON_HIDE_MS = 380;
       var cutOnScheduled = false;
 
       var finishBoot = function () {
@@ -391,8 +390,7 @@ iAhN857+COvboLk2rnovqc2D9mOpkCNTWA/dPiqbH5nbDrQfKtFjrA==
         var days = Math.floor(totalSeconds / 86400);
         var hours = Math.floor((totalSeconds % 86400) / 3600);
         var mins = Math.floor((totalSeconds % 3600) / 60);
-        var secs = totalSeconds % 60;
-        return days + "d " + String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m " + String(secs).padStart(2, "0") + "s";
+        return days + "d " + String(hours).padStart(2, "0") + "h " + String(mins).padStart(2, "0") + "m";
       }
 
       function renderPgpMeta() {
@@ -410,7 +408,7 @@ iAhN857+COvboLk2rnovqc2D9mOpkCNTWA/dPiqbH5nbDrQfKtFjrA==
       function startExpiryTicker() {
         if (expiryTicker) clearInterval(expiryTicker);
         renderPgpMeta();
-        expiryTicker = setInterval(renderPgpMeta, 1000);
+        expiryTicker = setInterval(renderPgpMeta, 60000);
       }
 
       function fitBox(el) {
@@ -429,7 +427,7 @@ iAhN857+COvboLk2rnovqc2D9mOpkCNTWA/dPiqbH5nbDrQfKtFjrA==
             var next = Math.min(i + chunk, fullText.length);
             el.value += fullText.slice(i, next);
             i = next;
-            fitBox(el);
+            if (i === fullText.length || i % 96 === 0) fitBox(el);
             setTimeout(step, speed);
           } else {
             if (el.parentElement) el.parentElement.classList.remove("is-typing");
@@ -606,21 +604,6 @@ AFTER COMPROMISE.`
 
       function setPgpGifPlaybackState(active) {
         if (!keyBox) return;
-        var block = keyBox.parentElement;
-        var wasActive = keyBox.classList.contains("is-active-gif");
-        if (wasActive === active) return;
-        if (block) {
-          block.classList.remove("is-switching");
-          void block.offsetWidth;
-          block.classList.add("is-switching");
-          setTimeout(function () {
-            block.classList.remove("is-switching");
-          }, 260);
-        }
-        if (active) {
-          keyBox.classList.add("is-active-gif");
-          return;
-        }
         keyBox.classList.remove("is-active-gif");
       }
 
@@ -696,6 +679,7 @@ AFTER COMPROMISE.`
       function openReadme() {
         closeAllModals();
         readmeModal.classList.add("is-open");
+        renderReadmeDiagram();
       }
 
       function closeReadme() {
@@ -793,8 +777,41 @@ AFTER COMPROMISE.`
         crtCursor.style.display = "none";
       }
 
-      if (window.mermaid) {
-        mermaid.initialize({
+      var mermaidLoadPromise = null;
+      function loadMermaid() {
+        if (window.mermaid) return Promise.resolve(window.mermaid);
+        if (mermaidLoadPromise) return mermaidLoadPromise;
+        mermaidLoadPromise = new Promise(function (resolve, reject) {
+          var script = document.createElement("script");
+          script.src = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js";
+          script.async = true;
+          script.onload = function () { resolve(window.mermaid); };
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+        return mermaidLoadPromise;
+      }
+
+      function styleReadmeDiagram() {
+        var flowSvg = document.querySelector(".mermaid-flow svg");
+        if (flowSvg) {
+          flowSvg.style.paddingLeft = "12px";
+          flowSvg.style.paddingRight = "12px";
+          flowSvg.style.paddingTop = "32px";
+          flowSvg.style.boxSizing = "border-box";
+          flowSvg.style.fontSize = "18px";
+          flowSvg.style.fontWeight = "300";
+          flowSvg.style.marginBottom = "18px";
+          flowSvg.style.overflow = "visible";
+        }
+      }
+
+      function renderReadmeDiagram() {
+        if (!readmeModal || readmeModal.dataset.mermaidRendered) return;
+        readmeModal.dataset.mermaidRendered = "loading";
+        loadMermaid().then(function (mermaidApi) {
+          if (!mermaidApi) return;
+          mermaidApi.initialize({
           startOnLoad: false,
           theme: "base",
           securityLevel: "loose",
@@ -818,22 +835,13 @@ AFTER COMPROMISE.`
             signalTextColor: "#ffd2d4"
           }
         });
-        mermaid.run({
-          querySelector: ".mermaid"
+          return mermaidApi.run({ querySelector: ".mermaid" });
+        }).then(function () {
+          readmeModal.dataset.mermaidRendered = "1";
+          setTimeout(styleReadmeDiagram, 0);
+        }).catch(function () {
+          readmeModal.dataset.mermaidRendered = "error";
         });
-        setTimeout(function () {
-          var flowSvg = document.querySelector(".mermaid-flow svg");
-          if (flowSvg) {
-            flowSvg.style.paddingLeft = "12px";
-            flowSvg.style.paddingRight = "12px";
-            flowSvg.style.paddingTop = "32px";
-            flowSvg.style.boxSizing = "border-box";
-            flowSvg.style.fontSize = "18px";
-            flowSvg.style.fontWeight = "300";
-            flowSvg.style.marginBottom = "18px";
-            flowSvg.style.overflow = "visible";
-          }
-        }, 80);
       }
     })();
   </script>
@@ -1006,7 +1014,7 @@ AFTER COMPROMISE.`
         html += note;
         bodyEl.innerHTML = html;
       }
-      fetch(META_URL, { cache: "no-store" })
+      fetch(META_URL, { cache: "default" })
         .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error("missing")); })
         .then(render)
         .catch(function () {
